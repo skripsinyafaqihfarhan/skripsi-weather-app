@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/overpass"
-        android:text="Today"
+        android:text="@string/today"
         android:textColor="@color/black"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -109,7 +109,7 @@
             android:id="@+id/tv_temperature_degree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-6dp"
+            android:layout_marginTop="-10dp"
             android:layout_marginStart="4dp"
             android:text="O"
             android:textColor="@color/black"
@@ -121,7 +121,7 @@
             android:id="@+id/tv_temperature_unit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="-4dp"
             android:text="C"
             android:textColor="@color/black"
             android:textSize="20sp"
@@ -131,12 +131,13 @@
     </LinearLayout>
 
     <TableLayout
+        android:id="@+id/tableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
-        app:layout_constraintStart_toStartOf="@id/weather_icon"
         app:layout_constraintEnd_toEndOf="@id/weather_icon"
+        app:layout_constraintStart_toStartOf="@id/weather_icon"
         app:layout_constraintTop_toBottomOf="@id/temperature">
 
         <TableRow
@@ -148,22 +149,22 @@
                 android:id="@+id/iv_wind_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/wind"/>
+                android:src="@drawable/wind" />
 
             <TextView
                 android:id="@+id/tv_wind"
-                android:text="@string/wind"
-                style="@style/Main.Condition"/>
+                style="@style/Main.Condition"
+                android:text="@string/wind" />
 
             <TextView
                 android:id="@+id/tv_wind_value"
-                android:text="11"
-                style="@style/Main.Condition.Value"/>
+                style="@style/Main.Condition.Value"
+                android:text="11" />
 
             <TextView
                 android:id="@+id/tv_wind_unit"
-                android:text="@string/speed_unit"
-                style="@style/Main.Condition"/>
+                style="@style/Main.Condition"
+                android:text="@string/speed_unit" />
         </TableRow>
 
         <TableRow
@@ -175,17 +176,17 @@
                 android:id="@+id/iv_direction_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/compass"/>
+                android:src="@drawable/compass" />
 
             <TextView
                 android:id="@+id/tv_direction"
-                android:text="@string/direction"
-                style="@style/Main.Condition"/>
+                style="@style/Main.Condition"
+                android:text="@string/direction" />
 
             <TextView
                 android:id="@+id/tv_direction_value"
-                android:text="South"
-                style="@style/Main.Condition.Value"/>
+                style="@style/Main.Condition.Value"
+                android:text="South" />
         </TableRow>
 
         <TableRow
@@ -197,30 +198,60 @@
                 android:id="@+id/iv_humidity_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/humidity"/>
+                android:src="@drawable/humidity" />
 
             <TextView
                 android:id="@+id/tv_humidity"
-                android:text="@string/humidity"
-                style="@style/Main.Condition"/>
+                style="@style/Main.Condition"
+                android:text="@string/humidity" />
 
             <TextView
                 android:id="@+id/tv_humidity_space"
-                style="@style/Main.Condition.Value"/>
+                style="@style/Main.Condition.Value" />
 
             <TextView
                 android:id="@+id/tv_humidity_value"
-                android:text="20"
-                android:gravity="right"
-                style="@style/Main.Condition"/>
+                style="@style/Main.Condition"
+                android:gravity="end"
+                android:text="20" />
 
             <TextView
                 android:id="@+id/tv_humidity_unit"
-                android:text="@string/humidity_unit"
-                android:gravity="right"
-                style="@style/Main.Condition"/>
+                style="@style/Main.Condition"
+                android:gravity="end"
+                android:text="@string/humidity_unit" />
         </TableRow>
     </TableLayout>
 
+    <TextView
+        android:id="@+id/today_condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/today"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/tv_kecamatan"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <TextView
+        android:id="@+id/next_7_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:text="Next 7 Days"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_today_condition"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@+id/today_condition"
+        app:layout_constraintTop_toBottomOf="@+id/today_condition"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

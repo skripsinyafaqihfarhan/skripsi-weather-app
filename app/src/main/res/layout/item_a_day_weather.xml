@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/a_day_card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="4dp">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="32dp"
+        android:layout_height="64dp"
+        android:padding="2dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_a_day_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 PM"
+            android:textSize="8sp"
+            android:textColor="@color/black"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_a_day_weather"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/wind"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_a_day_clock" />
+
+        <LinearLayout
+            android:id="@+id/temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/iv_a_day_weather"
+            tools:layout_editor_absoluteY="2dp">
+
+            <TextView
+                android:id="@+id/iv_a_day_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="26"
+                android:textSize="8sp"/>
+
+            <TextView
+                android:id="@+id/iv_a_day_temperature_degree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
+                android:textColor="@color/black"
+                android:text="o"
+                android:textSize="4sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/temperature"
+            tools:layout_editor_absoluteY="2dp">
+
+            <ImageView
+                android:id="@+id/iv_a_day_humidity"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/humidity"/>
+
+            <TextView
+                android:id="@+id/tv_a_day_humidity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="30"
+                android:textSize="8sp"/>
+
+            <TextView
+                android:id="@+id/tv_a_day_humidity_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="%"
+                android:textSize="8sp"/>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

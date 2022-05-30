@@ -19,4 +19,5 @@
     <string name="humidity">Humidity</string>
     <string name="humidity_unit">%</string>
     <string name="speed_unit">km/h</string>
+    <string name="today">Today</string>
 </resources>

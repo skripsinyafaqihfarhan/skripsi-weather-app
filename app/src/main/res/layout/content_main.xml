@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_main">
 
-    <fragment
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/nav_host_fragment_content_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
         android:id="@+id/today"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/overpass"
         android:text="Today"
         android:textColor="@color/black"
@@ -80,44 +80,147 @@
         android:id="@+id/weather_icon"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/today"
         tools:src="@tools:sample/avatars"/>
 
-    <TextView
-        android:id="@+id/tv_temperature"
+    <LinearLayout
+        android:id="@+id/temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="32"
-        android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/weather_icon" />
+        app:layout_constraintEnd_toEndOf="@id/weather_icon"
+        app:layout_constraintStart_toStartOf="@id/weather_icon"
+        app:layout_constraintTop_toBottomOf="@id/weather_icon">
 
-    <TextView
-        android:id="@+id/tv_temperature_degree"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:text="O"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_temperature"
-        app:layout_constraintTop_toTopOf="@+id/tv_temperature" />
+        <TextView
+            android:id="@+id/tv_temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="32"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="@+id/weather_icon"
+            app:layout_constraintTop_toBottomOf="@id/weather_icon" />
 
-    <TextView
-        android:id="@+id/tv_temperature_unit"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tv_temperature_degree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-6dp"
+            android:layout_marginStart="4dp"
+            android:text="O"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_temperature"
+            app:layout_constraintTop_toTopOf="@+id/tv_temperature" />
+
+        <TextView
+            android:id="@+id/tv_temperature_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="C"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_temperature_degree"
+            app:layout_constraintTop_toTopOf="@+id/tv_temperature_degree" />
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="C"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_temperature_degree"
-        app:layout_constraintTop_toTopOf="@+id/tv_temperature_degree" />
+        android:layout_marginLeft="48dp"
+        android:layout_marginRight="48dp"
+        app:layout_constraintStart_toStartOf="@id/weather_icon"
+        app:layout_constraintEnd_toEndOf="@id/weather_icon"
+        app:layout_constraintTop_toBottomOf="@id/temperature">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iv_wind_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/wind"/>
+
+            <TextView
+                android:id="@+id/tv_wind"
+                android:text="@string/wind"
+                style="@style/Main.Condition"/>
+
+            <TextView
+                android:id="@+id/tv_wind_value"
+                android:text="11"
+                style="@style/Main.Condition.Value"/>
+
+            <TextView
+                android:id="@+id/tv_wind_unit"
+                android:text="@string/speed_unit"
+                style="@style/Main.Condition"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iv_direction_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/compass"/>
+
+            <TextView
+                android:id="@+id/tv_direction"
+                android:text="@string/direction"
+                style="@style/Main.Condition"/>
+
+            <TextView
+                android:id="@+id/tv_direction_value"
+                android:text="South"
+                style="@style/Main.Condition.Value"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp">
+
+            <ImageView
+                android:id="@+id/iv_humidity_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/humidity"/>
+
+            <TextView
+                android:id="@+id/tv_humidity"
+                android:text="@string/humidity"
+                style="@style/Main.Condition"/>
+
+            <TextView
+                android:id="@+id/tv_humidity_space"
+                style="@style/Main.Condition.Value"/>
+
+            <TextView
+                android:id="@+id/tv_humidity_value"
+                android:text="20"
+                android:gravity="right"
+                style="@style/Main.Condition"/>
+
+            <TextView
+                android:id="@+id/tv_humidity_unit"
+                android:text="@string/humidity_unit"
+                android:gravity="right"
+                style="@style/Main.Condition"/>
+        </TableRow>
+    </TableLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

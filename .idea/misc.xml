@@ -12,11 +12,15 @@
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/humidity.xml" value="0.12" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/wind.xml" value="0.12" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/content_main.xml" value="0.33" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/app_bar_main.xml" value="0.209375" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/content_main.xml" value="0.22" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/fragment_gallery.xml" value="0.13496376811594202" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/fragment_home.xml" value="0.13496376811594202" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/fragment_slideshow.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/item_a_day_weather.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/nav_header_main.xml" value="0.13496376811594202" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/menu/activity_main_drawer.xml" value="0.209375" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/menu/main.xml" value="0.16203703703703703" />
       </map>
     </option>
   </component>

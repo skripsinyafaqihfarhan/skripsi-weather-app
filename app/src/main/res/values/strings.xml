@@ -14,4 +14,9 @@
     <string name="day_date"><![CDATA[<day>, <date>]]></string>
     <string name="time"><![CDATA[<time>]]></string>
     <string name="kota_kabupaten"><![CDATA[<Kota/Kabupaten>]]></string>
+    <string name="wind">Wind</string>
+    <string name="direction">Direction</string>
+    <string name="humidity">Humidity</string>
+    <string name="humidity_unit">%</string>
+    <string name="speed_unit">km/h</string>
 </resources>

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.WeekWeatherActivity">
+
+    <TextView
+        android:id="@+id/tv_detail_kecamatan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_light"
+        android:text="Kaliangkrik"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_detail_kabupaten"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_light"
+        android:text="Kab. Magelang, Jawa Tengah"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_detail_kecamatan"
+        app:layout_constraintStart_toStartOf="@+id/tv_detail_kecamatan"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_kecamatan" />
+
+    <TextView
+        android:id="@+id/tv_detail_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_light"
+        android:text="Prakiraan pukul: 09.00-12.00"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_detail_kabupaten"
+        app:layout_constraintStart_toStartOf="@+id/tv_detail_kabupaten"
+        app:layout_constraintTop_toBottomOf="@+id/tv_detail_kabupaten" />
+
+    <TableRow
+        android:id="@+id/tr_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_detail_time"
+        app:layout_constraintStart_toStartOf="@+id/tv_detail_time"
+        app:layout_constraintTop_toBottomOf="@id/tv_detail_time">
+
+        <ImageView
+            android:id="@+id/iv_weather"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/wind"/>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="32"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    app:layout_constraintStart_toStartOf="@+id/weather_icon"
+                    app:layout_constraintTop_toBottomOf="@id/weather_icon" />
+
+                <TextView
+                    android:id="@+id/tv_temperature_degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:text="O"
+                    android:textColor="@color/black"
+                    android:textSize="6sp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_temperature"
+                    app:layout_constraintTop_toTopOf="@+id/tv_temperature" />
+
+                <TextView
+                    android:id="@+id/tv_temperature_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-4dp"
+                    android:text="C"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_temperature_degree"
+                    app:layout_constraintTop_toTopOf="@+id/tv_temperature_degree" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_detail_weather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-4dp"
+                android:text="Angin Kencang"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_temperature_degree"
+                app:layout_constraintTop_toTopOf="@+id/tv_temperature_degree" />
+        </TableLayout>
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/detail_condition"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tr_weather">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_detail_humidity"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/humidity" />
+
+            <TableRow
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_detail_humidity_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="65"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_humidity_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="%"/>
+            </TableRow>
+
+            <TextView
+                android:id="@+id/tv_detail_humidity_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="Kelembapan"/>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_detail_wind_speed"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/wind" />
+
+            <TableRow
+                android:gravity="center">
+                <TextView
+                    android:id="@+id/tv_detail_wind_speed_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="20"/>
+
+                <TextView
+                    android:id="@+id/tv_detail_wind_speed_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:gravity="center"
+                    android:text="km/jam"/>
+
+            </TableRow>
+
+            <TextView
+                android:id="@+id/tv_detail_wind_speed_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="Kec. Angin"/>
+        </TableLayout>
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_detail_wind_direction"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/compass" />
+
+            <TextView
+                android:id="@+id/tv_detail_wind_speed_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Barat Daya"/>
+
+            <TextView
+                android:id="@+id/tv_detail_wind_direction_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="Arah Angin dari"/>
+        </TableLayout>
+    </TableRow>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detail_condition"
+        app:tabTextColor="@color/black"/>
+    
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tabs"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

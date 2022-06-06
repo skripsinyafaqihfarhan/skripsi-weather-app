@@ -1,4 +1,4 @@
-package com.umbat.skripsi_weather_app.ui
+package com.umbat.skripsi_weather_app.ui.weekweather
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

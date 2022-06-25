@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1033531150233",
+    "firebase_url": "https://skripsi-weather-app-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "skripsi-weather-app",
+    "storage_bucket": "skripsi-weather-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033531150233:android:fa6cefeda8792822fd0d08",
+        "android_client_info": {
+          "package_name": "com.umbat.skripsi_weather_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033531150233-g7dcro0eq7mgksvu7mirg1mc1adfa6ab.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFA6rOJKXb-Aic9JdVW8mrPrsUWyTCzKg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033531150233-g7dcro0eq7mgksvu7mirg1mc1adfa6ab.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

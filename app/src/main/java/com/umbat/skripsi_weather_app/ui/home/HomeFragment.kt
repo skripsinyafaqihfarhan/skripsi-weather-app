@@ -15,6 +15,8 @@ import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
 
+//testis
+
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

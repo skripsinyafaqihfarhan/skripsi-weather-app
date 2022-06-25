@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 
+//test
+
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null

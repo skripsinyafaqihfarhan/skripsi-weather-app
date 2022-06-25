@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/language">
+
+        <ListPreference
+            android:id="@+id/btn_language"
+            android:defaultValue="false"
+            android:key="language"
+            android:title="@string/choose_language" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/preference">
+
+        <SwitchPreference
+            android:id="@+id/switch_preference"
+            android:defaultValue="false"
+            android:key="appearance"
+            android:title="@string/dark_mode" />
+    </PreferenceCategory>
+</PreferenceScreen>

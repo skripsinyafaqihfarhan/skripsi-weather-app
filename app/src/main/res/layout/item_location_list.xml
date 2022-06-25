@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_space"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:layout_gravity="center"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_search_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="id"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_stripe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" - "
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_search_kecamatan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kecamatan"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_comma"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=", "
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_search_kota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/kota_kabupaten"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_comma2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=", "
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/tv_search_provinsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/provinsi"
+            android:textSize="18sp"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

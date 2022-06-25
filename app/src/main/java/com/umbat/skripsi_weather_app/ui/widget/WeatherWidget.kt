@@ -1,4 +1,4 @@
-package com.umbat.skripsi_weather_app.ui
+package com.umbat.skripsi_weather_app.ui.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider

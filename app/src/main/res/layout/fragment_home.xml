@@ -15,7 +15,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_condensed_light"
         android:text="@string/kecamatan"
-        android:textSize="34sp"
+        android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,26 +29,34 @@
         app:layout_constraintStart_toStartOf="@+id/tv_kecamatan"
         app:layout_constraintTop_toBottomOf="@+id/tv_kecamatan" />
 
-    <TextView
-        android:id="@+id/tv_daydate"
+    <LinearLayout
+        android:id="@+id/tv_daydatetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/day_date"
-        android:fontFamily="@font/roboto_condensed_regular"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/tv_kota"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_kota">
 
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:layout_marginStart="8dp"
-        android:fontFamily="@font/roboto_condensed_regular"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_daydate"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
+        <TextView
+            android:id="@+id/tv_daydate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/day_date"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:textSize="18sp"
+             />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto_condensed_regular"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/tv_daydate"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_add_location"
@@ -57,23 +65,21 @@
         android:layout_height="wrap_content"
         android:text="Set Location"
         android:textSize="8sp"
-        android:layout_marginEnd="8dp"
         app:icon="@drawable/ic_baseline_add_24"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_kecamatan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_kecamatan" />
+        app:layout_constraintStart_toStartOf="@+id/tv_daydatetime"
+        app:layout_constraintTop_toBottomOf="@+id/tv_daydatetime" />
 
     <TextView
         android:id="@+id/today"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/overpass"
         android:text="@string/today"
-        android:textSize="48sp"
+        android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_location" />
 
     <ImageView
         android:id="@+id/weather_icon"
@@ -99,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="32"
-            android:textSize="36sp"
+            android:textSize="32sp"
             app:layout_constraintStart_toStartOf="@+id/weather_icon"
             app:layout_constraintTop_toBottomOf="@id/weather_icon" />
 
@@ -226,7 +232,6 @@
         android:layout_marginTop="8dp"
         android:text="@string/today"
         android:textSize="16sp"
-        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="@+id/tv_kecamatan"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
@@ -236,8 +241,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
-        android:text="Next 7 Days"
-        android:textColor="@color/black"
+        android:text="Next 7 Days >"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
@@ -246,7 +250,8 @@
         android:id="@+id/rv_today_condition"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/today_condition"
-        app:layout_constraintTop_toBottomOf="@+id/today_condition"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/today_condition" />
 </androidx.constraintlayout.widget.ConstraintLayout>

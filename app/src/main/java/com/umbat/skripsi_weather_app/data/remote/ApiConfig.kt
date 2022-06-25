@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiConfig {
+object ApiConfig {
     val loggingInterceptor =
         if(BuildConfig.DEBUG) {
             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -16,7 +16,7 @@ class ApiConfig {
         .addInterceptor(loggingInterceptor)
         .build()
     val retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("")
+        .baseUrl("https://ibnux.github.io/BMKG-importer/")
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()

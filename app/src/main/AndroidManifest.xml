@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.umbat.skripsi_weather_app">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,8 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Skripsiweatherapp">
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:exported="false" />
+
         <receiver
-            android:name=".WeatherWidget"
+            android:name=".ui.widget.WeatherWidget"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -22,7 +29,7 @@
         </receiver>
 
         <activity
-            android:name=".WeekWeatherActivity"
+            android:name=".ui.weekweather.WeekWeatherActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

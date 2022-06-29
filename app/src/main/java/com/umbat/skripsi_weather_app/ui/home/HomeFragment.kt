@@ -1,6 +1,7 @@
 package com.umbat.skripsi_weather_app.ui.home
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
@@ -8,38 +9,50 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
+import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
-
-//testis
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var viewModelFactory: ViewModelFactory
+    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel =
-            ViewModelProvider(this)[HomeViewModel::class.java]
+//        val homeViewModel =
+//            ViewModelProvider(this)[HomeViewModel::class.java]
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.tvKecamatan
+        getDateTime()
+
+        val tvKecamatan: TextView = binding.tvKecamatan
         homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+            tvKecamatan.text = it
         }
+
+//        val tvDayDate: TextView = binding.tvDaydate
+//        homeViewModel.getDayDate().observe(viewLifecycleOwner) {
+//            tvDayDate.text =
+//        }
 
         val next7Days: TextView = binding.next7Days
         next7Days.setOnClickListener{
@@ -62,6 +75,16 @@ class HomeFragment : Fragment() {
 //            transaction?.commit()
         }
         return root
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getDateTime() {
+        val current = LocalDateTime.now()
+
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        val formatted = current.format(formatter)
+
+        println("Current Date and Time is: $formatted")
     }
 
     override fun onDestroyView() {

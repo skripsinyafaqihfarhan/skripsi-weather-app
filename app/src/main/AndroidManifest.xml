@@ -23,8 +23,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Skripsiweatherapp">
         <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
+        <activity
             android:name=".ui.search.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
 
         <receiver
             android:name=".ui.widget.WeatherWidget"

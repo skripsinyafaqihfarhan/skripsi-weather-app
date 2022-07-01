@@ -7,7 +7,7 @@ import com.umbat.skripsi_weather_app.data.Repository
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeViewModel(private val pref: Repository) : ViewModel() {
+class HomeViewModel(private val repo: Repository) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

@@ -25,7 +25,6 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModelFactory: ViewModelFactory
@@ -36,24 +35,36 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val homeViewModel =
-//            ViewModelProvider(this)[HomeViewModel::class.java]
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        getDateTime()
+//        val homeViewModel =
+//            ViewModelProvider(this)[HomeViewModel::class.java]
 
+        setupViewModel()
+
+        /**
+         * Kecamatan
+         */
         val tvKecamatan: TextView = binding.tvKecamatan
         homeViewModel.text.observe(viewLifecycleOwner) {
             tvKecamatan.text = it
         }
 
+        /**
+         * Day, Date, Time
+         */
+//        val current = LocalDateTime.now()
+//
+//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+//        val formatted = current.format(formatter)
+//
 //        val tvDayDate: TextView = binding.tvDaydate
-//        homeViewModel.getDayDate().observe(viewLifecycleOwner) {
-//            tvDayDate.text =
-//        }
+//        tvDayDate.text
 
+        /**
+         * Intent to 7 Days Condition Activity
+         */
         val next7Days: TextView = binding.next7Days
         next7Days.setOnClickListener{
             val intent = Intent(requireContext(), WeekWeatherActivity::class.java)
@@ -62,6 +73,9 @@ class HomeFragment : Fragment() {
             next7Days.movementMethod = LinkMovementMethod.getInstance()
         }
 
+        /**
+         * Intent to add location
+         */
         val addLocation: Button = binding.btnAddLocation
         addLocation.setOnClickListener{
             val intent = Intent(requireContext(), SearchActivity::class.java)
@@ -73,18 +87,13 @@ class HomeFragment : Fragment() {
 //            transaction?.replace(R.id.search_fragment, SearchFragment())
 //            transaction?.disallowAddToBackStack()
 //            transaction?.commit()
+
         }
         return root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getDateTime() {
-        val current = LocalDateTime.now()
-
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-        val formatted = current.format(formatter)
-
-        println("Current Date and Time is: $formatted")
+    private fun setupViewModel() {
+        viewModelFactory = ViewModelFactory.getInstance(requireContext())
     }
 
     override fun onDestroyView() {

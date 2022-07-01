@@ -12,7 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SearchViewModel(private val pref: Repository): ViewModel() {
+class SearchViewModel(private val repo: Repository): ViewModel() {
 
     val listLocation = MutableLiveData<ArrayList<LocationModel>>()
 

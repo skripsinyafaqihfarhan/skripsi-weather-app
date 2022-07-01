@@ -5,21 +5,22 @@ import androidx.datastore.core.DataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.umbat.skripsi_weather_app.data.Repository
+import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.ui.home.HomeViewModel
 import com.umbat.skripsi_weather_app.ui.search.SearchViewModel
 import com.umbat.skripsi_weather_app.utils.Injection
 import java.util.prefs.Preferences
 
-class ViewModelFactory(private val pref: Repository) : ViewModelProvider.NewInstanceFactory() {
+class ViewModelFactory(private val repo: Repository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T: ViewModel> create(modelClass: Class<T>): T {
         return when {
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
-                HomeViewModel(pref) as T
+                HomeViewModel(repo) as T
             }
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
-                SearchViewModel(pref) as T
+                SearchViewModel(repo) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

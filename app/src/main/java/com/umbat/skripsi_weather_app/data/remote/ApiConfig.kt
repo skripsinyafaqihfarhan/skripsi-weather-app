@@ -18,7 +18,7 @@ object ApiConfig {
             .addInterceptor(loggingInterceptor)
             .build()
         val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("https://ibnux.github.io/BMKG-importer/")
+            .baseUrl("https://storage.googleapis.com/skripsi-weather-api/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()

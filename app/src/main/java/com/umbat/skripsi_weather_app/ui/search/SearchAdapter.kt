@@ -18,9 +18,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setList(users: ArrayList<LocationModel>) {
+    fun setList(location: ArrayList<LocationModel>) {
         list.clear()
-        list.addAll(users)
+        list.addAll(location)
         notifyDataSetChanged()
     }
 
@@ -31,10 +31,10 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
             }
 
             binding.apply {
-                tvSearchId.text = location.id.toString()
+                tvSearchId.text = location.code.toString()
                 tvSearchKecamatan.text = location.kecamatan
-                tvSearchKota.text = location.kota
-                tvSearchProvinsi.text = location.propinsi
+                tvSearchKota.text = location.kabupaten
+                tvSearchProvinsi.text = location.province
             }
         }
     }

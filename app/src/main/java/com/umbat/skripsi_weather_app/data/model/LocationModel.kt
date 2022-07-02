@@ -5,10 +5,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LocationModel (
-    val id: Int,
-    val propinsi: String,
-    val kota: String,
+    val code: Int,
     val kecamatan: String,
-//    val lat: Double,
-//    val lon: Double,
+    val kabupaten: String,
+    val province: String,
+    val lat: Double,
+    val lon: Double,
 ) : Parcelable

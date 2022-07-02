@@ -9,6 +9,16 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
+    @GET("location/location.json")
+    fun getLocation(
+//        @Part("code") code: Int,
+        @Query("kecamatan") kecamatan: String,
+//        @Part("kabupaten") kabupaten: String,
+//        @Part("province") province: String,
+//        @Part("lat") lat: Double,
+//        @Part("lon") lon: Double
+    ): Call<LocationList>
+
 //    @GET("")
 //    suspend fun getWeather(
 //        @Part("humidity") humidity: Double,
@@ -17,15 +27,4 @@ interface ApiService {
 //        @Part("wind direction") winddir: String,
 //        @Part("wind speed") windspeed: Double
 //    )
-
-    @GET("cuaca/wilayah.json")
-    fun getLocation(
-        @Path("wilayah") wilayah: String,
-//        @Part("id") id: Int,
-//        @Part("propinsi") propinsi: String,
-//        @Part("kota") kota: String,
-//        @Part("kecamatan") kecamatan: String,
-//        @Part("lat") lat: Double,
-//        @Part("lon") lon: Double
-    ): Call<LocationList>
 }

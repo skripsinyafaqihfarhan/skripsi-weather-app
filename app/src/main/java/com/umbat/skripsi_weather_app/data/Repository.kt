@@ -11,7 +11,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
 class Repository private constructor(
     private val preferences: DataPreference,
     private val apiService: ApiService

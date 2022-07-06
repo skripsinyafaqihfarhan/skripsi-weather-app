@@ -6,9 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.settings.SettingsActivity">
 
-    <FrameLayout
-        android:id="@+id/settings"
+    <Button
+        android:id="@+id/btn_add_location"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        android:text="Change Language"
+        android:textSize="16sp"
+        app:icon="@drawable/ic_baseline_language_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switch_theme"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:text="@string/dark_mode"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_add_location"
+        app:layout_constraintStart_toStartOf="@+id/btn_add_location"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_location" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

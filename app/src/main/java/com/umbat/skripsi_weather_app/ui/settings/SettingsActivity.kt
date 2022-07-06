@@ -18,30 +18,32 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import com.umbat.skripsi_weather_app.R
 import com.umbat.skripsi_weather_app.data.Repository
 import com.umbat.skripsi_weather_app.data.local.DataPreference
+import com.umbat.skripsi_weather_app.databinding.ActivitySettingsBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class SettingsActivity : AppCompatActivity() {
 
+    private lateinit var binding : ActivitySettingsBinding
     private lateinit var viewModelFactory: ViewModelFactory
     private lateinit var preference: DataPreference
     private val settingsViewModel: SettingsViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val actionBar = supportActionBar
+        actionBar!!.title = "Settings"
+
+        setupLanguage()
         setupViewModel()
 
         val switchMaterial = findViewById<SwitchMaterial>(R.id.switch_theme)
-        val languageIntent = findViewById<Button>(R.id.btn_language)
-
-//        languageIntent.setOnClickListener {
-//            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
-//        }
 
         preference = DataPreference.getInstance(dataStore)
 //        settingsViewModel = ViewModelProvider(this, ViewModelFactory(pref))[SettingsViewModel::class.java]
@@ -61,6 +63,12 @@ class SettingsActivity : AppCompatActivity() {
             settingsViewModel.saveThemeSettings(isChecked)
         }
 
+    }
+
+    private fun setupLanguage() {
+        binding.btnAddLocation.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
     }
 
     private fun setupViewModel() {

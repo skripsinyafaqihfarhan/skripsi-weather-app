@@ -8,6 +8,16 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,8 +26,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Skripsiweatherapp">
         <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
             android:name=".ui.search.SearchActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
 
         <receiver
             android:name=".ui.widget.WeatherWidget"
@@ -35,9 +50,8 @@
             android:name=".ui.weekweather.WeekWeatherActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.SplashActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.Skripsiweatherapp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,10 +59,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Skripsiweatherapp.NoActionBar"/>
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

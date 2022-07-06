@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cuacamu</string>
+    <string name="navigation_drawer_open">Buka navigation drawer</string>
+    <string name="navigation_drawer_close">Tutup navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Pengaturan</string>
+    <string name="menu_home">Beranda</string>
+
+    <string name="kecamatan"><![CDATA[<Kecamatan>]]></string>
+    <string name="day_date"><![CDATA[<day>, <date>]]></string>
+    <string name="time"><![CDATA[<time>]]></string>
+    <string name="kota_kabupaten"><![CDATA[<Kota/Kabupaten>]]></string>
+    <string name="wind">Angin</string>
+    <string name="direction">Arah Angin</string>
+    <string name="humidity">Kelembapan</string>
+    <string name="humidity_unit">%</string>
+    <string name="speed_unit">km/h</string>
+    <string name="today">Today</string>
+    <string name="provinsi">Provinsi</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="appwidget_text">CONTOH</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="app_widget_description">Ini adalah deskripsi app widget</string>
+    <string name="search_hint">Cari Lokasi Di Sini</string>
+    <string name="menu_settings">Pengaturan</string>
+    <string name="menu_about">Tentang</string>
+    <string name="language">Bahasa</string>
+    <string name="appearance">Tampilan</string>
+    <string name="preference">Preferensi</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="choose_language">Pilih Bahasa</string>
+</resources>

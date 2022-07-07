@@ -3,8 +3,8 @@ package com.umbat.skripsi_weather_app.data.model
 import com.google.gson.annotations.SerializedName
 
 data class LocationModel (
-    @field:SerializedName("code")
-    val code: Int,
+    @field:SerializedName("id")
+    val id: Int,
 
     @field:SerializedName("kecamatan")
     val kecamatan: String,
@@ -12,8 +12,8 @@ data class LocationModel (
     @field:SerializedName("kabupaten")
     val kabupaten: String,
 
-    @field:SerializedName("province")
-    val province: String,
+    @field:SerializedName("provinsi")
+    val provinsi: String,
 
     @field:SerializedName("lat")
     val lat: Double,

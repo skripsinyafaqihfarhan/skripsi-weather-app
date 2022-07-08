@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.umbat.skripsi_weather_app.data.Repository
 import com.umbat.skripsi_weather_app.data.local.DataPreference
-import com.umbat.skripsi_weather_app.data.remote.ApiConfig
+import com.umbat.skripsi_weather_app.data.remote.retrofit.ApiConfig
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("token")
 

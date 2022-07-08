@@ -49,7 +49,7 @@ class SearchActivity : AppCompatActivity() {
                 searchLocation()
             }
 
-            searchBar.setOnKeyListener { v, keyCode, event ->
+            searchBar.setOnKeyListener { _, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     searchLocation()
                     return@setOnKeyListener true
@@ -62,6 +62,14 @@ class SearchActivity : AppCompatActivity() {
             if (it != null) {
                 adapter.setList(it)
                 showLoading(false)
+            }
+        }
+    }
+
+    private fun setupAdapter() {
+        searchViewModel.getAllLocationResponse.observe(this) { adapter ->
+            if (adapter != null) {
+                binding.rvLocationList.adapter = SearchAdapter()
             }
         }
     }

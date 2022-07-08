@@ -1,4 +1,4 @@
-package com.umbat.skripsi_weather_app.data.remote
+package com.umbat.skripsi_weather_app.data.remote.retrofit
 
 import com.loopj.android.http.BuildConfig
 import okhttp3.OkHttpClient

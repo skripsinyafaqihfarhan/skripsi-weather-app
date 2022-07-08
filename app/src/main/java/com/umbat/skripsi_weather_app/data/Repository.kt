@@ -3,10 +3,9 @@ package com.umbat.skripsi_weather_app.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
 import com.umbat.skripsi_weather_app.data.local.DataPreference
-import com.umbat.skripsi_weather_app.data.model.LocationList
-import com.umbat.skripsi_weather_app.data.remote.ApiService
+import com.umbat.skripsi_weather_app.data.remote.response.GetAllLocationResponse
+import com.umbat.skripsi_weather_app.data.remote.retrofit.ApiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,31 +15,40 @@ class Repository private constructor(
     private val apiService: ApiService
 ) {
 
-    private val location = MutableLiveData<LocationList>()
+    private val _getAllLocationResponse = MutableLiveData<GetAllLocationResponse>()
+    val getAllLocationResponse: LiveData<GetAllLocationResponse> = _getAllLocationResponse
 
     private val _showLoading = MutableLiveData<Boolean>()
     val showLoading: LiveData<Boolean> = _showLoading
 
-    fun setLocationList(kecamatan: String) {
-        val client = apiService.getLocation(kecamatan)
+    private val _toastText = MutableLiveData<String>()
+    val toastText: LiveData<String> = _toastText
 
-        client.enqueue(object : Callback<LocationList> {
+    fun getLocationList(token: String) {
+        _showLoading.value = true
+        val client = apiService.getLocation(token)
+
+        client.enqueue(object : Callback<GetAllLocationResponse> {
             override fun onResponse(
-                call: Call<LocationList>,
-                response: Response<LocationList>
+                call: Call<GetAllLocationResponse>,
+                response: Response<GetAllLocationResponse>
             ) {
-                if (response.isSuccessful)
-                    location.postValue(response.body())
+                _showLoading.value = false
+                if (response.isSuccessful && response.body() != null) {
+                    _getAllLocationResponse.value = response.body()
+                } else {
+                    _toastText.value = response.message().toString()
+                    Log.e(
+                        TAG,
+                        "onFailure: ${response.message()}, ${response.body()?.message.toString()}"
+                    )
+                }
             }
 
-            override fun onFailure(call: Call<LocationList>, t: Throwable) {
+            override fun onFailure(call: Call<GetAllLocationResponse>, t: Throwable) {
                 t.message?.let { Log.d("Failure", it) }
             }
         })
-    }
-
-    fun getThemeSettings(): LiveData<Boolean> {
-        return preferences.getThemeSettings().asLiveData()
     }
 
     suspend fun saveThemeSettings(isDarkModeActive: Boolean) {

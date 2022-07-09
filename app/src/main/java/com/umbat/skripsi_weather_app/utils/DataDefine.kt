@@ -1,8 +1,8 @@
-package com.umbat.skripsi_weather_app.data.util
+package com.umbat.skripsi_weather_app.utils
 
 import java.lang.IllegalArgumentException
 
-class dataDefine {
+class DataDefine {
     fun kondisiCuaca(x: String): String {
         return when(x) {
             "0" -> {"Cerah" as String}

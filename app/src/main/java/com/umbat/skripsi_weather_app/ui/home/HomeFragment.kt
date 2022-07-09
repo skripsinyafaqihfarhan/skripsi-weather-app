@@ -50,11 +50,6 @@ class HomeFragment : Fragment() {
     lateinit var daySix: String
     lateinit var daySeven: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        checkDataLocation()
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -63,11 +58,9 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
         GlobalScope.launch(Dispatchers.IO) {
             getWeatherData()
         }
-
 
         calendar = Calendar.getInstance()
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -103,9 +96,6 @@ class HomeFragment : Fragment() {
 //        val tvDayDate: TextView = binding.tvDaydate
 //        tvDayDate.text
 
-
-
-
         /**
          * Intent to 7 Days Condition Activity
          */
@@ -125,14 +115,8 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), SearchAct::class.java)
             findNavController()
             startActivity(intent)
-
-            // fragment to fragment
-//            val transaction = activity?.supportFragmentManager?.beginTransaction()
-//            transaction?.replace(R.id.search_fragment, SearchFragment())
-//            transaction?.disallowAddToBackStack()
-//            transaction?.commit()
-
         }
+        checkDataLocation()
         return root
     }
 

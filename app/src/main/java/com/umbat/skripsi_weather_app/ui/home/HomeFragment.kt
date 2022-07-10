@@ -14,10 +14,14 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.kinnoe.testroomdatabase.remote.Scan
+import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
+import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
+import com.umbat.skripsi_weather_app.data.room.WeatherDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
@@ -31,15 +35,14 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.concurrent.thread
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: HomeViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
-    }
+    private lateinit var homeViewModel: HomeViewModel
     lateinit var simpleDateFormat: SimpleDateFormat
     lateinit var calendar: Calendar
     lateinit var today: String
@@ -50,11 +53,6 @@ class HomeFragment : Fragment() {
     lateinit var daySix: String
     lateinit var daySeven: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        checkDataLocation()
-    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -62,11 +60,15 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val daoSatu = WeatherDatabase.getInstance(requireContext()).weatherDao()
+        val daoDua = UserlocDatabase.getInstance(requireContext()).userlocDao()
+        val repo = AppRepository(daoSatu, daoDua)
+        val factory = ViewModelFactory(repo)
+        homeViewModel = ViewModelProvider(this,factory).get(HomeViewModel::class.java)
 
 
-        GlobalScope.launch(Dispatchers.IO) {
-            getWeatherData()
-        }
+        // checkDataLocation()
+       getWeatherData()
 
 
         calendar = Calendar.getInstance()
@@ -103,9 +105,6 @@ class HomeFragment : Fragment() {
 //        val tvDayDate: TextView = binding.tvDaydate
 //        tvDayDate.text
 
-
-
-
         /**
          * Intent to 7 Days Condition Activity
          */
@@ -125,14 +124,8 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), SearchAct::class.java)
             findNavController()
             startActivity(intent)
-
-            // fragment to fragment
-//            val transaction = activity?.supportFragmentManager?.beginTransaction()
-//            transaction?.replace(R.id.search_fragment, SearchFragment())
-//            transaction?.disallowAddToBackStack()
-//            transaction?.commit()
-
         }
+        checkDataLocation()
         return root
     }
 
@@ -141,6 +134,7 @@ class HomeFragment : Fragment() {
         val kodeKec: String = data.kodeKec.toString()
         val prov: String = data.provID.toString()
         val scan = Scan()
+        thread {  }
         try {
             val weatherData = scan.getContent(kodeKec,prov)
             val size = weatherData.size - 1

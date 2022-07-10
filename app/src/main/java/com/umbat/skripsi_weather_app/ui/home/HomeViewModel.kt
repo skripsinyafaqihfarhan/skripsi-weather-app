@@ -45,4 +45,8 @@ class HomeViewModel(private val repo: AppRepository) : ViewModel() {
         return pref.getThemeSettings().asLiveData()
     }
 
+    fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
+        return pref.getThemeSettings().asLiveData()
+    }
+
 }

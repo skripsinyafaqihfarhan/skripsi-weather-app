@@ -1,4 +1,4 @@
-package com.umbat.skripsi_weather_app.data.local.room
+package com.umbat.skripsi_weather_app.data.room
 
 import androidx.room.*
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
@@ -9,8 +9,9 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDataToLocal(data: Weather)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllDataWeather(data: MutableList<Weather>?)
+
+//    @Delete
+//    suspend fun delete()
 
     @Query("DELETE FROM weatherdata")
     fun deleteWeatherData()

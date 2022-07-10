@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -46,7 +45,9 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModels { ViewModelFactory.getInstance(requireContext()) }
+    private lateinit var pref: DataPreference
+
     lateinit var simpleDateFormat: SimpleDateFormat
     lateinit var calendar: Calendar
     lateinit var today: String
@@ -64,15 +65,6 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val weatherDB = WeatherDatabase.getInstance(requireContext())
-        val daoWeather = weatherDB.weatherDao()
-        val userlocDB = UserlocDatabase.getInstance(requireContext())
-        val daoUserloc = userlocDB.userlocDao()
-        val pref = DataPreference.getInstance(requireContext().dataStore)
-        val repo = AppRepository(daoWeather,daoUserloc,pref)
-        val factory = ViewModelFactory(repo)
-
-        homeViewModel = ViewModelProvider(this,factory).get(HomeViewModel::class.java)
 
         homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
             binding.apply {
@@ -97,7 +89,7 @@ class HomeFragment : Fragment() {
 
 
         calendar = Calendar.getInstance()
-        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.US)
         today = simpleDateFormat.format(calendar.time)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val parsedDate = LocalDate.parse(today,formatter)
@@ -187,57 +179,21 @@ class HomeFragment : Fragment() {
             findNavController()
             startActivity(intent)
         }
+        checkDataLocation()
         return root
     }
 
-    private fun showResult(data: List<Weather>?) {
-        if (data.isNullOrEmpty()) {
-            showInfo(isProgressBarShow = false, isImageShow = true, isMessageShow = true)
-            return
+
+
+    private fun checkDataLocation() {
+        homeViewModel.checkDataLoc().asLiveData().observe(viewLifecycleOwner) { data ->
+            if (data.size == 0) {
+                val intent = Intent(requireContext(), SearchAct::class.java)
+                findNavController()
+                startActivity(intent)
+            }
         }
-        showInfo(isProgressBarShow = false, isImageShow = false, isMessageShow = false)
-        val size = data.size - 1
-        var dataCuaca: MutableList<Weather>? = null
-        for (i in 0 until size) {
-            dataCuaca?.addAll(listOf(Weather(i,data[i].dateTime,data[i].rhNow,
-                data[i].tempNow,data[i].weatherCond,data[i].windDr,
-                data[i].windSp)))
-        }
-        homeViewModel.addAllDataCuaca(dataCuaca)
     }
-
-    /**
-     * Handle state when response is Loading.
-     * Show text info with the message
-     * */
-    private fun onLoading() {
-        binding.tvMessageUnexpected.text = "Retrieving data, please wait"
-        showInfo(isProgressBarShow = true, isImageShow = false)
-    }
-
-    /**
-     * Handle state when response is Error.
-     * Show text info with the message
-     * */
-    private fun onError() {
-        binding.tvMessageUnexpected.text = "An error occured, please try again later"
-        showInfo(isProgressBarShow = false, isImageShow = true)
-    }
-
-    /**
-     * Show image, progress bar and text info
-     * for state loading or error
-     * */
-    private fun showInfo(
-        isProgressBarShow: Boolean,
-        isImageShow: Boolean,
-        isMessageShow: Boolean = true
-    ) {
-        binding.progressBar.isVisible = isProgressBarShow
-        binding.ivErrorList.isVisible = isImageShow
-        binding.tvMessageUnexpected.isVisible = isMessageShow
-    }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

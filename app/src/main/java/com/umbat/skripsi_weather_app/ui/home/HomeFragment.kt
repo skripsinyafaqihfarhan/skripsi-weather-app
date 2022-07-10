@@ -10,11 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.data.Resource
@@ -179,7 +181,17 @@ class HomeFragment : Fragment() {
             findNavController()
             startActivity(intent)
         }
-        checkDataLocation()
+
+        val preference = DataPreference.getInstance(requireContext().dataStore)
+
+        homeViewModel.getThemeSettings(preference).observe(requireActivity()
+        ) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
         return root
     }
 

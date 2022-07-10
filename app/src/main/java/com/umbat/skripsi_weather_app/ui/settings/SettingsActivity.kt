@@ -12,14 +12,12 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import androidx.lifecycle.ViewModelProvider
-import androidx.preference.PreferenceFragmentCompat
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.umbat.skripsi_weather_app.R
-import com.umbat.skripsi_weather_app.data.Repository
 import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.databinding.ActivitySettingsBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
+
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 

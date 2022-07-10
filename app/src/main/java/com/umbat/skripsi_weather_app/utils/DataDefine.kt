@@ -1,0 +1,50 @@
+package com.umbat.skripsi_weather_app.utils
+
+import java.lang.IllegalArgumentException
+
+class DataDefine {
+    fun kondisiCuaca(x: String): String {
+        return when(x) {
+            "0" -> {"Cerah"}
+            "1" -> {"Cerah Berawan"}
+            "2" -> {"Cerah Berawan"}
+            "3" -> {"Berawan"}
+            "4" -> {"Berawan Tebal"}
+            "5" -> {"Udara Kabur"}
+            "10" -> {"Asap"}
+            "45" -> {"Kabut"}
+            "60" -> {"Hujan Ringan"}
+            "61" -> {"Hujan Sedang"}
+            "63" -> {"Hujan Lebat"}
+            "80" -> {"Hujan Lokal"}
+            "95" -> {"Hujan Petir"}
+            "97" -> {"Hujan Petir"}
+            else -> {
+                throw IllegalArgumentException("Kondisi cuaca tak terdefinisi")
+            }
+        }
+    }
+    fun arahAngin(x: String): String {
+        return when(x) {
+            "N" -> {"Utara"}
+            "NNE" -> {"Utara-Timur Laut"}
+            "NE" -> {"Timur Laut"}
+            "ENE" -> {"Timur-Timur Laut"}
+            "E" -> {"Timur"}
+            "ESE" -> {"Timur-Tenggara"}
+            "SE" -> {"Tenggara"}
+            "SSE" -> {"Tenggara-Selatan"}
+            "S" -> {"Selatan"}
+            "SSW" -> {"Selatan-Barat Daya"}
+            "SW" -> {"Barat Daya"}
+            "WSW" -> {"Barat-Barat Daya"}
+            "W" -> {"Barat"}
+            "WNW" -> {"Barat-Barat Laut"}
+            "NW" -> {"Barat Laut"}
+            "NNW" -> {"Utara-Barat Laut"}
+            else -> {
+                throw IllegalArgumentException("Kondisi cuaca tak terdefinisi")
+            }
+        }
+    }
+}

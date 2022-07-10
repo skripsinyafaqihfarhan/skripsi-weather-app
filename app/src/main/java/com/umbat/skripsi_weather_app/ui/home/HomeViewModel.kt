@@ -2,6 +2,7 @@ package com.umbat.skripsi_weather_app.ui.home
 
 import androidx.lifecycle.*
 import com.umbat.skripsi_weather_app.data.AppRepository
+import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import kotlinx.coroutines.Dispatchers
@@ -25,5 +26,9 @@ class HomeViewModel(private val repo: AppRepository) : ViewModel() {
     }
 
     fun getUserloc() = repo.getUserloc()
+
+    fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
+        return pref.getThemeSettings().asLiveData()
+    }
 
 }

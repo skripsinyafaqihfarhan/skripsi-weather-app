@@ -1,4 +1,4 @@
-package com.umbat.skripsi_weather_app.data.room
+package com.umbat.skripsi_weather_app.data.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

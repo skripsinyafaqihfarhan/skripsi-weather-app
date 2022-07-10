@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -17,6 +18,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.kinnoe.testroomdatabase.remote.Scan
+import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
@@ -37,9 +39,9 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: HomeViewModel by viewModels {
-        ViewModelFactory.getInstance(requireContext())
-    }
+    private val homeViewModel: HomeViewModel by viewModels { ViewModelFactory.getInstance(requireContext()) }
+    private lateinit var pref: DataPreference
+
     lateinit var simpleDateFormat: SimpleDateFormat
     lateinit var calendar: Calendar
     lateinit var today: String
@@ -58,12 +60,10 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        GlobalScope.launch(Dispatchers.IO) {
-            getWeatherData()
-        }
+        getWeatherData()
 
         calendar = Calendar.getInstance()
-        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.US)
         today = simpleDateFormat.format(calendar.time)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val parsedDate = LocalDate.parse(today,formatter)
@@ -116,6 +116,18 @@ class HomeFragment : Fragment() {
             findNavController()
             startActivity(intent)
         }
+
+        val preference = DataPreference.getInstance(requireContext().dataStore)
+
+        homeViewModel.getThemeSettings(preference).observe(requireActivity()
+        ) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
         checkDataLocation()
         return root
     }

@@ -14,7 +14,7 @@ class SearchAct : AppCompatActivity() {
 
     private lateinit var binding: ActSearchBinding
     private val searchViewModel: SearchActViewModel by viewModels {
-        ViewModelFactory.getInstance(parent.applicationContext)
+        ViewModelFactory.getInstance(applicationContext)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +41,6 @@ class SearchAct : AppCompatActivity() {
             )
             searchViewModel.addDataLoc(data)
         }
-        Toast.makeText(parent.applicationContext,"Location set!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext,"Location set!", Toast.LENGTH_SHORT).show()
     }
 }

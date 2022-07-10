@@ -11,7 +11,7 @@ import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherViewModel
 import com.umbat.skripsi_weather_app.ui.widget.WeatherWidgetViewModel
 import com.umbat.skripsi_weather_app.utils.Injection
 
-class ViewModelFactory private constructor(private val repo: AppRepository):
+class ViewModelFactory (private val repo: AppRepository):
     ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

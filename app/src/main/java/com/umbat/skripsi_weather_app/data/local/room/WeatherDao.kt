@@ -9,8 +9,6 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDataToLocal(data: Weather)
 
-    @Delete
-    suspend fun delete()
 
     @Query("SELECT * FROM weatherdata WHERE dateTime = :time LIMIT 1")
     fun readData(time: String): Flow<Weather?>

@@ -29,10 +29,7 @@
             android:name=".ui.settings.SettingsActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.search.SearchActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
+
 
         <receiver
             android:name=".ui.widget.WeatherWidget"
@@ -63,6 +60,13 @@
             android:name=".MainActivity"
             android:exported="false"
             android:theme="@style/Theme.Skripsiweatherapp.NoActionBar"/>
+        <activity
+            android:name=".ui.search.SearchAct"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

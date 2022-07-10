@@ -19,9 +19,10 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.kinnoe.testroomdatabase.remote.Scan
 import com.umbat.skripsi_weather_app.data.AppRepository
+import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
+import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
-import com.umbat.skripsi_weather_app.data.room.WeatherDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
@@ -62,7 +63,8 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
         val daoSatu = WeatherDatabase.getInstance(requireContext()).weatherDao()
         val daoDua = UserlocDatabase.getInstance(requireContext()).userlocDao()
-        val repo = AppRepository(daoSatu, daoDua)
+        val pref = DataPreference.getInstance(requireContext().dataStore)
+        val repo = AppRepository(daoSatu,daoDua,pref)
         val factory = ViewModelFactory(repo)
         homeViewModel = ViewModelProvider(this,factory).get(HomeViewModel::class.java)
 

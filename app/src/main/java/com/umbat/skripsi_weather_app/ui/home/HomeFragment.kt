@@ -39,8 +39,8 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val homeViewModel: HomeViewModel by viewModels { ViewModelFactory.getInstance(requireContext()) }
-    private lateinit var pref: DataPreference
+    private lateinit var viewModelFactory: ViewModelFactory
+    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
 
     lateinit var simpleDateFormat: SimpleDateFormat
     lateinit var calendar: Calendar
@@ -60,7 +60,9 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        setupViewModel()
         getWeatherData()
+        checkDataLocation()
 
         calendar = Calendar.getInstance()
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.US)
@@ -127,8 +129,6 @@ class HomeFragment : Fragment() {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
-
-        checkDataLocation()
         return root
     }
 
@@ -164,6 +164,10 @@ class HomeFragment : Fragment() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun setupViewModel() {
+        viewModelFactory = ViewModelFactory.getInstance(requireContext())
     }
 
     override fun onDestroyView() {

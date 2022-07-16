@@ -8,6 +8,7 @@ data class Userloc (
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
     val kodeKec: String?,
+    val kota: String?,
     val provID: String?,
     var isSelected: Boolean = false
 )

@@ -38,10 +38,14 @@ class SearchAct : AppCompatActivity() {
 
     private fun insertDataToDatabase() {
         binding.apply {
-            val kode = inputKodekec.editText.toString()
-            val prov = inputProvID.editText.toString()
+            val kode = inputKodekec.editText?.text.toString()
+            val prov = inputProvID.editText?.text.toString()
             val data = Userloc(
-                0,kode,prov,true
+                0,
+                kode,
+                prov,
+                "1",
+                true
             )
             searchViewModel.addDataLoc(data)
         }

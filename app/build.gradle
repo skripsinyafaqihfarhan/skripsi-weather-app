@@ -77,7 +77,6 @@ dependencies {
     //firebase
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.firebaseui:firebase-ui-database:8.0.1'
-    implementation 'com.firebaseui:firebase-ui:1.0.1'
 
     //room
     implementation "androidx.room:room-ktx:2.4.2"

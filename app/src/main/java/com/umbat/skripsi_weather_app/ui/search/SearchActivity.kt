@@ -52,19 +52,19 @@ class SearchActivity : AppCompatActivity() {
             Toast.makeText(this,"Masukkan lokasi", Toast.LENGTH_SHORT).show()
         } else {
             val firebaseSearchQuery = mDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff")
-            FirebaseRecyclerAdapter = object: FirebaseRecyclerAdapter<Userloc, UserlocViewHolder>(
-                Userloc::class.java,
-                R.layout.item_location_list,
-                UserlocViewHolder::class.java,
-                firebaseSearchQuery
-            ) {
-                override fun populateViewHolder(viewHolder: UserlocViewHolder, model: Userloc?, position: Int) {
-                    viewHolder.mview.tvSearchId.setText(model?.id)
-                    viewHolder.mview.tvSearchKecamatan.setText(model?.kodeKec)
-                    viewHolder.mview.tvSearchKota.setText(model?.kota)
-                    viewHolder.mview.tvSearchProvinsi.setText(model?.provID)
-                }
-            }
+//            FirebaseRecyclerAdapter = object: FirebaseRecyclerAdapter<Userloc, UserlocViewHolder>(
+//                Userloc::class.java,
+//                R.layout.item_location_list,
+//                UserlocViewHolder::class.java,
+//                firebaseSearchQuery
+//            ) {
+//                override fun populateViewHolder(viewHolder: UserlocViewHolder, model: Userloc?, position: Int) {
+//                    viewHolder.mview.tvSearchId.setText(model?.id)
+//                    viewHolder.mview.tvSearchKecamatan.setText(model?.kodeKec)
+//                    viewHolder.mview.tvSearchKota.setText(model?.kota)
+//                    viewHolder.mview.tvSearchProvinsi.setText(model?.provID)
+//                }
+//            }
             mRecyclerView.adapter = FirebaseRecyclerAdapter
         }
     }

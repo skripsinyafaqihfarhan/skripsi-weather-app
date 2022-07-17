@@ -1,5 +1,6 @@
 package com.kinnoe.testroomdatabase.remote
 
+import android.util.Log
 import java.io.InputStreamReader
 import java.util.*
 import kotlin.collections.ArrayList

@@ -83,15 +83,15 @@ class HomeFragment : Fragment() {
         daySeven = parsedDate.plusDays(6).toString()
 
         homeViewModel.readDataCuaca("$today 12:00:00").observe(viewLifecycleOwner) { data ->
-            Log.d("tes", data.toString())
-//            binding.apply {
-//                val define = DataDefine()
-//                binding.tvTemperature.text = data?.tempNow
-//                binding.tvHumidityValue.text = data?.rhNow
-//                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
-//                binding.tvWindValue.text = data?.windSp
-//                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
-//            }
+            binding.apply {
+                val define = DataDefine()
+                Log.d("tes", "data to be shown: $data")
+                binding.tvTemperature.text = data?.tempNow
+                binding.tvHumidityValue.text = data?.rhNow
+                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
+                binding.tvWindValue.text = data?.windSp
+                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
+            }
         }
 
         /**
@@ -131,7 +131,6 @@ class HomeFragment : Fragment() {
 
     private fun getWeatherData() {
         homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
-            println(data)
             if (data != null) {
                 val kodeKec: String = data.kodeKec.toString()
                 val prov: String = data.provID.toString()
@@ -167,7 +166,7 @@ class HomeFragment : Fragment() {
 
     private fun checkDataLocation() {
         homeViewModel.checkDataLoc().asLiveData().observe(viewLifecycleOwner) { data ->
-            if (data.size == 0) {
+            if (data.isEmpty()) {
                 val intent = Intent(requireContext(), SearchAct::class.java)
                 findNavController()
                 startActivity(intent)

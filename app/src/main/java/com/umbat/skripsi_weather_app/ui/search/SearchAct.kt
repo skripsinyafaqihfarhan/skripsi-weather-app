@@ -41,7 +41,11 @@ class SearchAct : AppCompatActivity() {
             val kode = inputKodekec.editText.toString()
             val prov = inputProvID.editText.toString()
             val data = Userloc(
-                0,kode,prov,true
+                0,
+                kode,
+                prov,
+                "1",
+                true
             )
             searchViewModel.addDataLoc(data)
         }

@@ -29,10 +29,6 @@
             android:name=".ui.settings.SettingsActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
-        <activity
-            android:name=".ui.search.SearchActivity"
-            android:exported="false"
-            android:parentActivityName=".MainActivity" />
 
         <receiver
             android:name=".ui.widget.WeatherWidget"
@@ -50,7 +46,7 @@
             android:name=".ui.weekweather.WeekWeatherActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.search.SearchAct"
+            android:name=".ui.search.SearchActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity

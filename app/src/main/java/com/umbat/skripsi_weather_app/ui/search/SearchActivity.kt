@@ -11,37 +11,38 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.paging.FirebaseRecyclerPagingAdapter
+import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.umbat.skripsi_weather_app.R
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
+import com.umbat.skripsi_weather_app.databinding.ActSearchBinding
+import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 
 //private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class SearchActivity : AppCompatActivity() {
 
-    lateinit var mSearchText : EditText
-    lateinit var mRecyclerView : RecyclerView
     lateinit var mDatabase : DatabaseReference
+    private lateinit var binding : ActivitySearchBinding
     private lateinit var FirebaseRecyclerAdapter : FirebaseRecyclerAdapter<Userloc , UserlocViewHolder>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivitySearchBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        mSearchText =findViewById(R.id.search)
-        mRecyclerView = findViewById(R.id.rv_location_list)
         mDatabase = FirebaseDatabase.getInstance().getReference("Users")
-        mRecyclerView.setHasFixedSize(true)
-        mRecyclerView.setLayoutManager(LinearLayoutManager(this))
+        binding.rvLocationList.setHasFixedSize(true)
+        binding.rvLocationList.setLayoutManager(LinearLayoutManager(this))
 
-        mSearchText.addTextChangedListener(object  : TextWatcher {
+        binding.searchBar.addTextChangedListener(object  : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val searchText = mSearchText.getText().toString().trim()
+                val searchText = binding.searchBar.getText().toString().trim()
                 loadFirebaseData(searchText)
             }
         } )
@@ -65,7 +66,7 @@ class SearchActivity : AppCompatActivity() {
 //                    viewHolder.mview.tvSearchProvinsi.setText(model?.provID)
 //                }
 //            }
-            mRecyclerView.adapter = FirebaseRecyclerAdapter
+            binding.rvLocationList.adapter = FirebaseRecyclerAdapter
         }
     }
 

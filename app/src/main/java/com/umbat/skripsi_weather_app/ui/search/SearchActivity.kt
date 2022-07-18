@@ -89,10 +89,9 @@ class SearchActivity : AppCompatActivity() {
     class UserlocViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(userLoc: Userloc) {
             val itemView = ItemLocationListBinding.bind(view)
-            itemView.tvSearchId.text = userLoc.id?.toString()
-            itemView.tvSearchKecamatan.text = userLoc?.kodeKec
-            itemView.tvSearchKota.text = userLoc?.kota
-            itemView.tvSearchProvinsi.text = userLoc?.provID
+            itemView.tvSearchKecamatan.text = userLoc.kec
+            itemView.tvSearchKota.text = userLoc.kab
+            itemView.tvSearchProvinsi.text = userLoc.prov
         }
     }
 }

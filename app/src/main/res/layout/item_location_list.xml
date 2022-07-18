@@ -16,21 +16,6 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tv_search_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="id"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/tv_stripe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" - "
-            android:textSize="18sp"/>
-
-        <TextView
             android:id="@+id/tv_search_kecamatan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

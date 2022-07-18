@@ -132,7 +132,7 @@ class HomeFragment : Fragment() {
     private fun getWeatherData() {
         homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
             if (data != null) {
-                val kodeKec: String = data.kodeKec.toString()
+                val kodeKec: String = data.kec.toString()
                 val prov: String = data.provID.toString()
                 val scan = Scan()
                 try {

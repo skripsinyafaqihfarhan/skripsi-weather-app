@@ -6,9 +6,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "userloc")
 data class Userloc (
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = 0,
-    val kodeKec: String? = "",
-    val kota: String? = "",
+    val kode: Int? = 0,
+    val kec: String? = "",
+    val kab: String? = "",
+    val prov: String? = "",
     val provID: String? = "",
     var isSelected: Boolean = false
 )

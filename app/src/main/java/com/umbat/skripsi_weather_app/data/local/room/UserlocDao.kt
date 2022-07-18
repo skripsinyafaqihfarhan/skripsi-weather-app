@@ -16,10 +16,10 @@ interface UserlocDao {
     @Query("SELECT * FROM userloc")
     fun selectAllData(): Flow<List<Userloc>>
 
-    @Query("SELECT * FROM userloc WHERE isSelected = 1 ORDER BY id LIMIT 1")
+    @Query("SELECT * FROM userloc WHERE isSelected = 1 ORDER BY kode LIMIT 1")
     fun getLoc(): Userloc
 
-    @Query("UPDATE userloc SET isSelected = :newstate WHERE kodeKec = :kode")
+    @Query("UPDATE userloc SET isSelected = :newstate WHERE kec = :kode")
     suspend fun updateSelected(newstate: Boolean, kode: String)
 
     @Query("DELETE FROM userloc")

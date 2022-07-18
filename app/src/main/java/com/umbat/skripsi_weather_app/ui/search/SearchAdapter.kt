@@ -29,10 +29,9 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.SearchViewHolder>() {
             }
 
             binding.apply {
-                tvSearchId.text = location.id.toString()
-                tvSearchKecamatan.text = location.kodeKec
-                tvSearchKota.text = location.kota
-                tvSearchProvinsi.text = location.provID
+                tvSearchKecamatan.text = location.kec
+                tvSearchKota.text = location.kab
+                tvSearchProvinsi.text = location.prov
             }
         }
     }

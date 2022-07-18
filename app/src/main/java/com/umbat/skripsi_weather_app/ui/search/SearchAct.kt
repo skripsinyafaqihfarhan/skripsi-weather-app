@@ -42,8 +42,9 @@ class SearchAct : AppCompatActivity() {
             val prov = inputProvID.editText?.text.toString()
             val data = Userloc(
                 0,
-                kode,
-                prov,
+                "kode",
+                "kab",
+                "prov",
                 "1",
                 true
             )

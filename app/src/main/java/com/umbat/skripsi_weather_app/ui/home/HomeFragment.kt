@@ -27,6 +27,7 @@ import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
+import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
 import com.umbat.skripsi_weather_app.utils.DataDefine
 import kotlinx.coroutines.*
@@ -59,45 +60,52 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
         val kec = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KECAMATAN)
         val kab = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KAB)
-        val root: View = binding.root
-        val daoSatu = WeatherDatabase.getInstance(requireContext()).weatherDao()
-        val daoDua = UserlocDatabase.getInstance(requireContext()).userlocDao()
-        val pref = DataPreference.getInstance(requireContext().dataStore)
-        val repo = AppRepository(daoSatu, daoDua, pref)
-        val factory = ViewModelFactory(repo)
-        homeViewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
+        binding.apply {
+            tvKecamatan.text = kec
+            tvKota.text = kab
+        }
+
+//        val daoSatu = WeatherDatabase.getInstance(requireContext()).weatherDao()
+//        val daoDua = UserlocDatabase.getInstance(requireContext()).userlocDao()
+//
+//        val pref = DataPreference.getInstance(requireContext().dataStore)
+//        val repo = AppRepository(daoSatu, daoDua, pref)
+//        val factory = ViewModelFactory(repo)
+
+//        homeViewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
         // checkDataLocation()
-        getWeatherData()
+//        getWeatherData()
 
-        calendar = Calendar.getInstance()
-        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-        today = simpleDateFormat.format(calendar.time)
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        val parsedDate = LocalDate.parse(today, formatter)
-        dayTwo = parsedDate.plusDays(1).toString()
-        dayThree = parsedDate.plusDays(2).toString()
-        dayFour = parsedDate.plusDays(3).toString()
-        dayFive = parsedDate.plusDays(4).toString()
-        daySix = parsedDate.plusDays(5).toString()
-        daySeven = parsedDate.plusDays(6).toString()
+//        calendar = Calendar.getInstance()
+//        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+//        today = simpleDateFormat.format(calendar.time)
+//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+//        val parsedDate = LocalDate.parse(today, formatter)
+//        dayTwo = parsedDate.plusDays(1).toString()
+//        dayThree = parsedDate.plusDays(2).toString()
+//        dayFour = parsedDate.plusDays(3).toString()
+//        dayFive = parsedDate.plusDays(4).toString()
+//        daySix = parsedDate.plusDays(5).toString()
+//        daySeven = parsedDate.plusDays(6).toString()
 
-        homeViewModel.readDataCuaca("$today 12:00:00").observe(viewLifecycleOwner) { data ->
-            binding.apply {
-                val define = DataDefine()
-                Log.d("tes", "data to be shown: $data")
-                binding.tvKecamatan.text = kec
-                binding.tvKota.text = kab
-                binding.tvTemperature.text = data?.tempNow
-                binding.tvHumidityValue.text = data?.rhNow
-                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
-                binding.tvWindValue.text = data?.windSp
-                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
-            }
-        }
+//        homeViewModel.readDataCuaca("$today 12:00:00").observe(viewLifecycleOwner) { data ->
+//            binding.apply {
+//                val define = DataDefine()
+//                Log.d("tes", "data to be shown: $data")
+//                binding.tvKecamatan.text = kec
+//                binding.tvKota.text = kab
+//                binding.tvTemperature.text = data?.tempNow
+//                binding.tvHumidityValue.text = data?.rhNow
+//                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
+//                binding.tvWindValue.text = data?.windSp
+//                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
+//            }
+
 
         /**
          * Day, Date, Time
@@ -126,11 +134,11 @@ class HomeFragment : Fragment() {
          */
         val addLocation: Button = binding.btnAddLocation
         addLocation.setOnClickListener {
-            val intent = Intent(requireContext(), SearchAct::class.java)
+            val intent = Intent(requireContext(), SearchActivity::class.java)
             findNavController()
             startActivity(intent)
         }
-        checkDataLocation()
+//        checkDataLocation()
         return root
     }
 
@@ -187,6 +195,5 @@ class HomeFragment : Fragment() {
     companion object {
         const val EXTRA_KECAMATAN = "extra_kecamatan"
         const val EXTRA_KAB = "extra_kota"
-//        const val EXTRA_PROVINSI = "extra_provinsi"
     }
 }

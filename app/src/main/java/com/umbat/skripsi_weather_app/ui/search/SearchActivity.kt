@@ -17,6 +17,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.umbat.skripsi_weather_app.MainActivity
 import com.umbat.skripsi_weather_app.R
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
@@ -40,16 +41,16 @@ class SearchActivity : AppCompatActivity() {
         adapter = SearchAdapter()
         adapter.notifyDataSetChanged()
 
-        adapter.setOnItemClickCallback(object: SearchAdapter.OnItemClickCallback{
-            override fun onItemClicked(data: Userloc) {
-                Toast.makeText(this@SearchActivity, "Lokasi dipilih", Toast.LENGTH_SHORT).show()
-                Intent(this@SearchActivity, HomeFragment::class.java).also{
-                    it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
-                    it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
-                    startActivity(it)
-                }
-            }
-        })
+//        adapter.setOnItemClickCallback(object: SearchAdapter.OnItemClickCallback{
+//            override fun onItemClicked(data: Userloc) {
+//                Toast.makeText(this@SearchActivity, "Lokasi dipilih", Toast.LENGTH_SHORT).show()
+//                Intent(this@SearchActivity, HomeFragment::class.java).also{
+//                    it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
+//                    it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
+//                    startActivity(it)
+//                }
+//            }
+//        })
 
         mDatabase = FirebaseDatabase.getInstance().getReference("geodata")
         binding.rvLocationList.setHasFixedSize(true)
@@ -94,14 +95,14 @@ class SearchActivity : AppCompatActivity() {
                         position: Int,
                         model: Userloc
                     ) {
-                        holder.bind(model){ data ->
-                            Toast.makeText(this@SearchActivity, "Lokasi dipilih", Toast.LENGTH_SHORT).show()
+                        holder.bind(model){ data: Userloc ->
+                            Toast.makeText(this@SearchActivity, "${data.kec} dipilih", Toast.LENGTH_SHORT).show()
                             // TODO: This wont work since intent to fragment is prohibited. Intent must go to an activity.
-//                            Intent(this@SearchActivity, HomeFragment::class.java).also{
-//                                it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
-//                                it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
-//                                startActivity(it)
-//                            }
+                            Intent(this@SearchActivity, MainActivity::class.java).also{
+                                it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
+                                it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
+                                startActivity(it)
+                            }
                         }
                     }
                 }

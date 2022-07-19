@@ -2,6 +2,7 @@ package com.umbat.skripsi_weather_app.ui.home
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.getIntent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.util.Log
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
+//    private lateinit var binding: FragmentHomeBinding
     lateinit var simpleDateFormat: SimpleDateFormat
     lateinit var calendar: Calendar
     lateinit var today: String
@@ -57,6 +59,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        val kec = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KECAMATAN)
+        val kab = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KAB)
         val root: View = binding.root
         val daoSatu = WeatherDatabase.getInstance(requireContext()).weatherDao()
         val daoDua = UserlocDatabase.getInstance(requireContext()).userlocDao()
@@ -65,10 +70,8 @@ class HomeFragment : Fragment() {
         val factory = ViewModelFactory(repo)
         homeViewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
 
-
         // checkDataLocation()
         getWeatherData()
-
 
         calendar = Calendar.getInstance()
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -86,6 +89,8 @@ class HomeFragment : Fragment() {
             binding.apply {
                 val define = DataDefine()
                 Log.d("tes", "data to be shown: $data")
+                binding.tvKecamatan.text = kec
+                binding.tvKota.text = kab
                 binding.tvTemperature.text = data?.tempNow
                 binding.tvHumidityValue.text = data?.rhNow
                 binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
@@ -177,5 +182,11 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val EXTRA_KECAMATAN = "extra_kecamatan"
+        const val EXTRA_KAB = "extra_kota"
+//        const val EXTRA_PROVINSI = "extra_provinsi"
     }
 }

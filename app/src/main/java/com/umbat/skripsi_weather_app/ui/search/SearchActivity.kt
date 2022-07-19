@@ -1,5 +1,6 @@
 package com.umbat.skripsi_weather_app.ui.search
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,6 +21,7 @@ import com.umbat.skripsi_weather_app.R
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
+import com.umbat.skripsi_weather_app.ui.home.HomeFragment
 
 //private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -27,12 +29,27 @@ class SearchActivity : AppCompatActivity() {
 
     lateinit var mDatabase: DatabaseReference
     private lateinit var binding: ActivitySearchBinding
+    private lateinit var adapter: SearchAdapter
     private lateinit var FirebaseRecyclerAdapter: FirebaseRecyclerAdapter<Userloc, UserlocViewHolder>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        adapter = SearchAdapter()
+        adapter.notifyDataSetChanged()
+
+        adapter.setOnItemClickCallback(object: SearchAdapter.OnItemClickCallback{
+            override fun onItemClicked(data: Userloc) {
+                Toast.makeText(this@SearchActivity, "Lokasi dipilih", Toast.LENGTH_SHORT).show()
+                Intent(this@SearchActivity, HomeFragment::class.java).also{
+                    it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
+                    it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
+                    startActivity(it)
+                }
+            }
+        })
 
         mDatabase = FirebaseDatabase.getInstance().getReference("geodata")
         binding.rvLocationList.setHasFixedSize(true)
@@ -50,7 +67,6 @@ class SearchActivity : AppCompatActivity() {
                 loadFirebaseData(searchText)
             }
         })
-
     }
 
     private fun loadFirebaseData(searchText: String) {

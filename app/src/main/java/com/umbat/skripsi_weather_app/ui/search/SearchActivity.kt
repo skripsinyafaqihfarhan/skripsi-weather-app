@@ -94,7 +94,15 @@ class SearchActivity : AppCompatActivity() {
                         position: Int,
                         model: Userloc
                     ) {
-                        holder.bind(model)
+                        holder.bind(model){ data ->
+                            Toast.makeText(this@SearchActivity, "Lokasi dipilih", Toast.LENGTH_SHORT).show()
+                            // TODO: This wont work since intent to fragment is prohibited. Intent must go to an activity.
+//                            Intent(this@SearchActivity, HomeFragment::class.java).also{
+//                                it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
+//                                it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
+//                                startActivity(it)
+//                            }
+                        }
                     }
                 }
             adapter.startListening()
@@ -103,11 +111,15 @@ class SearchActivity : AppCompatActivity() {
     }
 
     class UserlocViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(userLoc: Userloc) {
+        fun bind(userLoc: Userloc, onItemClick: (Userloc) -> Unit) {
             val itemView = ItemLocationListBinding.bind(view)
             itemView.tvSearchKecamatan.text = userLoc.kec
             itemView.tvSearchKota.text = userLoc.kab
             itemView.tvSearchProvinsi.text = userLoc.prov
+
+            itemView.root.setOnClickListener {
+               onItemClick(userLoc)
+            }
         }
     }
 }

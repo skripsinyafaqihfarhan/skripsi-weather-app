@@ -2,6 +2,7 @@ package com.umbat.skripsi_weather_app.ui.search
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,13 +35,26 @@ class SearchAct : AppCompatActivity() {
 
     private fun insertDataToDatabase() {
         binding.apply {
-            val kode = inputKodekec.editText.toString()
-            val prov = inputProvID.editText.toString()
-            val data = Userloc(
-                0,kode,prov,true
-            )
-            searchViewModel.addDataLoc(data)
+            val kode: String = binding.inputKodekec.editText?.text.toString()
+            val provID: String = binding.inputProvID.editText?.text.toString()
+            val kec: String = binding.inputKecamatan.editText?.text.toString()
+            val kabkot:String = binding.inputKabKota.editText?.text.toString()
+            val prov: String = binding.inputProvinsi.editText?.text.toString()
+            if (inputCheck(kode,provID,kec)){
+                val data = Userloc(
+                    0,kode,provID,kec,kabkot,prov
+                )
+                searchViewModel.addDataLoc(data)
+                Toast.makeText(applicationContext,"Location set!", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                Toast.makeText(applicationContext, "Please fill out all fields.", Toast.LENGTH_LONG).show()
+            }
         }
-        Toast.makeText(applicationContext,"Location set!", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun inputCheck(data1: String, data2: String, data3: String): Boolean{
+        return !(TextUtils.isEmpty(data1) && TextUtils.isEmpty(data2) && TextUtils.isEmpty(data3) )
     }
 }

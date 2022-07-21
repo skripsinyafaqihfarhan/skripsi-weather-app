@@ -9,9 +9,12 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDataToLocal(data: Weather)
 
-//    @Delete
-//    suspend fun delete()
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllDataWeather(data: MutableList<Weather>?)
 
-    @Query("SELECT * FROM weatherdata WHERE dateTime = :time LIMIT 1")
-    fun readData(time: String): Flow<Weather?>
+    @Query("DELETE FROM weatherdata")
+    fun deleteWeatherData()
+
+    @Query("SELECT * FROM weatherdata WHERE `Tanggal Waktu(UTC)` = :time LIMIT 1")
+    fun readData(time: String): Flow<Weather>
 }

@@ -1,4 +1,4 @@
-package com.kinnoe.testroomdatabase.remote
+package com.umbat.skripsi_weather_app.data.remote
 
 import java.io.InputStreamReader
 import java.util.*

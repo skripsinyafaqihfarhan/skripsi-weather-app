@@ -50,6 +50,11 @@
             android:name=".ui.weekweather.WeekWeatherActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.search.SearchAct"
+            android:exported="false"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Skripsiweatherapp.NoActionBar">

@@ -1,6 +1,5 @@
 package com.umbat.skripsi_weather_app.data.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -10,18 +9,15 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface UserlocDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDataLoc(data: Userloc)
 
-    @Query("SELECT * FROM userloc")
-    fun selectAllData(): Flow<List<Userloc>>
+    @Query("SELECT EXISTS(SELECT * FROM UserlocTable)")
+    fun isExist(): Boolean
 
-    @Query("SELECT * FROM userloc WHERE isSelected = 1 ORDER BY id LIMIT 1")
-    fun getLoc(): Userloc
+    @Query("SELECT * FROM UserlocTable LIMIT 1")
+    fun getLoc(): Flow<Userloc>
 
-    @Query("UPDATE userloc SET isSelected = :newstate WHERE kodeKec = :kode")
-    suspend fun updateSelected(newstate: Boolean, kode: String)
-
-    @Query("DELETE FROM userloc")
-    suspend fun deleteDataLoc()
+    @Query("DELETE FROM UserlocTable")
+    fun deleteDataLoc()
 }

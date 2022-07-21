@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/STMKG/Proposal-Skripsi/skripsi-weather-app/skripsi-weather-app/app/src/main/res/drawable-nodpi/ic_warning.xml" value="0.1615" />
+        <entry key="..\:/STMKG/Proposal-Skripsi/skripsi-weather-app/skripsi-weather-app/app/src/main/res/layout/act_search.xml" value="0.209375" />
+        <entry key="..\:/STMKG/Proposal-Skripsi/skripsi-weather-app/skripsi-weather-app/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
         <entry key="..\:/Users/Farhan Pratama/FundamentalAndroid/skripsiweatherapp/app/src/main/res/drawable/compass.xml" value="0.1" />
         <entry key="..\:/Users/Farhan Pratama/FundamentalAndroid/skripsiweatherapp/app/src/main/res/drawable/humidity.xml" value="0.1" />
         <entry key="..\:/Users/Farhan Pratama/FundamentalAndroid/skripsiweatherapp/app/src/main/res/drawable/ic_menu_camera.xml" value="0.13" />

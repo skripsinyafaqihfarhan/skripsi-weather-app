@@ -10,11 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
@@ -22,10 +22,8 @@ import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.data.Resource
 import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
-import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
-import com.umbat.skripsi_weather_app.data.remote.ResponseData
-import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
+import com.umbat.skripsi_weather_app.data.room.WeatherDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
@@ -67,6 +65,13 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        val weatherDB = WeatherDatabase.getInstance(requireContext())
+        val daoWeather = weatherDB.weatherDao()
+        val userlocDB = UserlocDatabase.getInstance(requireContext())
+        val daoUserloc = userlocDB.userlocDao()
+        val pref = DataPreference.getInstance(requireContext().dataStore)
+        val repo = AppRepository(daoWeather,daoUserloc,pref)
+        val factory = ViewModelFactory(repo)
 
         homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
             binding.apply {
@@ -75,23 +80,12 @@ class HomeFragment : Fragment() {
             }
         }
 
-//        homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
-//            val kodeKec = data.kodeKec
-//            val prov = data.provID
-//            homeViewModel.getAllWeatherData(kodeKec,prov).observe(viewLifecycleOwner) { response ->
-//                if (response != null) {
-//                    when (response) {
-//                        is Resource.Loading -> onLoading()
-//                        is Resource.Success -> showResult(response.data)
-//                        is Resource.Error -> onError()
-//                    }
-//                }
-//            }
-//        }
+        // checkDataLocation()
+       getWeatherData()
 
 
         calendar = Calendar.getInstance()
-        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.US)
+        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         today = simpleDateFormat.format(calendar.time)
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         val parsedDate = LocalDate.parse(today,formatter)
@@ -148,8 +142,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-
-
         /**
          * Day, Date, Time
          */
@@ -195,17 +187,63 @@ class HomeFragment : Fragment() {
         return root
     }
 
-
-
-    private fun checkDataLocation() {
-        homeViewModel.checkDataLoc().asLiveData().observe(viewLifecycleOwner) { data ->
-            if (data.size == 0) {
-                val intent = Intent(requireContext(), SearchAct::class.java)
-                findNavController()
-                startActivity(intent)
+    private fun getWeatherData() {
+        val data = homeViewModel.getUserloc()
+        val kodeKec: String = data.kodeKec.toString()
+        val prov: String = data.provID.toString()
+        val scan = Scan()
+        thread {  }
+        try {
+            val weatherData = scan.getContent(kodeKec,prov)
+            val size = weatherData.size - 1
+            for (i in 0 until size) {
+                homeViewModel.addDataCuaca(
+                    Weather(
+                        weatherData[i][1],
+                        weatherData[i][6],
+                        weatherData[i][7],
+                        weatherData[i][8],
+                        weatherData[i][9],
+                        weatherData[i][10])
+                )
             }
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
+
+    /**
+     * Handle state when response is Loading.
+     * Show text info with the message
+     * */
+    private fun onLoading() {
+        binding.tvMessageUnexpected.text = "Retrieving data, please wait"
+        showInfo(isProgressBarShow = true, isImageShow = false)
+    }
+
+    /**
+     * Handle state when response is Error.
+     * Show text info with the message
+     * */
+    private fun onError() {
+        binding.tvMessageUnexpected.text = "An error occured, please try again later"
+        showInfo(isProgressBarShow = false, isImageShow = true)
+    }
+
+    /**
+     * Show image, progress bar and text info
+     * for state loading or error
+     * */
+    private fun showInfo(
+        isProgressBarShow: Boolean,
+        isImageShow: Boolean,
+        isMessageShow: Boolean = true
+    ) {
+        binding.progressBar.isVisible = isProgressBarShow
+        binding.ivErrorList.isVisible = isImageShow
+        binding.tvMessageUnexpected.isVisible = isMessageShow
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

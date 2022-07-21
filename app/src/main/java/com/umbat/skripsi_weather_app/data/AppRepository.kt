@@ -2,6 +2,7 @@ package com.umbat.skripsi_weather_app.data
 
 import com.umbat.skripsi_weather_app.data.local.DataPreference
 import android.util.Log
+import android.util.Log
 import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
@@ -11,6 +12,8 @@ import com.umbat.skripsi_weather_app.data.remote.DataScan
 import com.umbat.skripsi_weather_app.data.remote.ResponseData
 import com.umbat.skripsi_weather_app.data.local.room.UserlocDao
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDao
+import com.umbat.skripsi_weather_app.data.remote.DataScan
+import com.umbat.skripsi_weather_app.data.remote.ResponseData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.io.InputStreamReader
@@ -18,12 +21,6 @@ import java.net.URL
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AppRepository(
-    private val weatherDao: WeatherDao,
-    private val userlocDao: UserlocDao,
-    private val pref: DataPreference
-) {
-    fun checkDataLoc(): Flow<List<Userloc>> = userlocDao.selectAllData()
 class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: UserlocDao,
     private val pref: DataPreference) {
 
@@ -54,6 +51,10 @@ class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: 
     suspend fun addDataToLocal(weather: Weather) {
         weatherDao.addDataToLocal(weather)
     }
+
+    suspend fun addDataToLocal(weather: Weather) { weatherDao.addDataToLocal(weather) }
+
+    suspend fun addAllDataToLocal(data: MutableList<Weather>?) { weatherDao.insertAllDataWeather(data)}
 
     suspend fun addDataToLocal(weather: Weather) { weatherDao.addDataToLocal(weather) }
 

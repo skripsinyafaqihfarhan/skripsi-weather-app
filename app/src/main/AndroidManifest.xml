@@ -50,6 +50,10 @@
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Skripsiweatherapp.NoActionBar" />
+        <activity
             android:name=".ui.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.Skripsiweatherapp.NoActionBar">
@@ -59,10 +63,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Skripsiweatherapp.NoActionBar"/>
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

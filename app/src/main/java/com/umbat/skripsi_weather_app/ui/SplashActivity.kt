@@ -5,9 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import com.umbat.skripsi_weather_app.MainActivity
 import com.umbat.skripsi_weather_app.R
-import com.umbat.skripsi_weather_app.ui.search.SearchAct
 import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 
 @SuppressLint("CustomSplashScreen")

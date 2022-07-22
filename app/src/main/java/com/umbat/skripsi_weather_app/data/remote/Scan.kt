@@ -8,7 +8,7 @@ import kotlin.collections.ArrayList
 
 class Scan {
     fun getContent(kodeKec: String, provID: String): MutableList<List<String>>{
-        val link = URL("https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/CSV/kecamatanforecast-jakarta.csv")
+        val link = URL("https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/CSV/kecamatanforecast-{$provID}.csv")
         val linkStream = InputStreamReader(link.openConnection().getInputStream())
         var dataScan = scanData(linkStream).records
         return scanKode(dataScan as ArrayList<List<String>>,kodeKec)

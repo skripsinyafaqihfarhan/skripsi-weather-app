@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.ui.home.HomeViewModel
-import com.umbat.skripsi_weather_app.ui.search.SearchActViewModel
 import com.umbat.skripsi_weather_app.ui.search.SearchViewModel
 import com.umbat.skripsi_weather_app.ui.settings.SettingsViewModel
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherViewModel

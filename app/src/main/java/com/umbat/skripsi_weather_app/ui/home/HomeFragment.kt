@@ -2,39 +2,38 @@ package com.umbat.skripsi_weather_app.ui.home
 
 import android.content.Context
 import android.content.Intent
-import android.content.Intent.getIntent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import com.kinnoe.testroomdatabase.remote.Scan
 import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.data.local.DataPreference
+import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
+import com.umbat.skripsi_weather_app.data.local.room.WeatherDao
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
-import com.umbat.skripsi_weather_app.ui.search.SearchAct
 import com.umbat.skripsi_weather_app.ui.search.SearchActivity
+import com.umbat.skripsi_weather_app.ui.settings.SettingsViewModel
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
-import com.umbat.skripsi_weather_app.utils.DataDefine
 import kotlinx.coroutines.*
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -42,8 +41,9 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(na
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var homeViewModel: HomeViewModel
-//    private lateinit var binding: FragmentHomeBinding
+    private val homeViewModel: HomeViewModel by viewModels { viewModelFactory }
+    private lateinit var viewModelFactory: ViewModelFactory
+    //    private lateinit var binding: FragmentHomeBinding
     lateinit var simpleDateFormat: SimpleDateFormat
     lateinit var calendar: Calendar
     lateinit var today: String
@@ -62,21 +62,43 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val kec = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KECAMATAN)
-        val kab = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KAB)
-        binding.apply {
-            tvKecamatan.text = kec
-            tvKota.text = kab
+//        val kec = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KECAMATAN)
+//        val kab = getActivity()?.getIntent()?.getExtras()?.getString(EXTRA_KAB)
+//        binding.apply {
+//            tvKecamatan.text = kec
+//            tvKota.text = kab
+//        }
+        val daoSatu = WeatherDatabase.getInstance(requireContext()).weatherDao()
+        val daoDua = UserlocDatabase.getInstance(requireContext()).userlocDao()
+        val pref = DataPreference.getInstance(requireContext().dataStore)
+
+        val repo = AppRepository(daoSatu, daoDua, pref)
+        val factory = ViewModelFactory(repo)
+
+        val homeViewModel = ViewModelProvider(this, ViewModelFactory(repo)).get(
+            HomeViewModel::class.java
+        )
+
+        homeViewModel.getUserLoc().observe(viewLifecycleOwner) { loc ->
+            binding.apply {
+                tvKecamatan.text = loc?.kec
+                tvKota.text = loc?.kab
+            }
         }
 
-//        val daoSatu = WeatherDatabase.getInstance(requireContext()).weatherDao()
-//        val daoDua = UserlocDatabase.getInstance(requireContext()).userlocDao()
-//
-//        val pref = DataPreference.getInstance(requireContext().dataStore)
-//        val repo = AppRepository(daoSatu, daoDua, pref)
-//        val factory = ViewModelFactory(repo)
+        // TODO: this could be the place where HomeFragment load dark mode from SettingsViewModel, unfortunately ViewModelFactory's parameter refers to AppRepository that can not be used for DataStore
+        val settingsViewModel = ViewModelProvider(this, ViewModelFactory(repo)).get(
+            SettingsViewModel::class.java
+        )
 
-//        homeViewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
+        settingsViewModel.getThemeSettings(pref).observe(requireActivity()
+        ) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
         // checkDataLocation()
 //        getWeatherData()
@@ -138,52 +160,58 @@ class HomeFragment : Fragment() {
             findNavController()
             startActivity(intent)
         }
-//        checkDataLocation()
         return root
     }
 
-    private fun getWeatherData() {
-        homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
-            if (data != null) {
-                val kodeKec: String = data.kec.toString()
-                val prov: String = data.provID.toString()
-                val scan = Scan()
-                try {
-                    GlobalScope.launch {
-                        val defer = async(Dispatchers.IO){
-                            scan.getContent(kodeKec, prov)
-                        }
-
-                        val weatherData = defer.await()
-                        val size = weatherData.size - 1
-                        for (i in 0 until size) {
-                            homeViewModel.addDataCuaca(
-                                Weather(
-                                    weatherData[i][1],
-                                    weatherData[i][6],
-                                    weatherData[i][7],
-                                    weatherData[i][8],
-                                    weatherData[i][9],
-                                    weatherData[i][10]
-                                )
-                            )
-                        }
-
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
+//    private fun getWeatherData() {
+//        homeViewModel.getUserLoc().observe(viewLifecycleOwner) { data ->
+//            if (data != null) {
+//                val kodeKec: String = data.kec.toString()
+//                val prov: String = data.provID.toString()
+//                val scan = Scan()
+//                try {
+//                    GlobalScope.launch {
+//                        val defer = async(Dispatchers.IO){
+//                            scan.getContent(kodeKec, prov)
+//                        }
+//
+//                        val weatherData = defer.await()
+//                        val size = weatherData.size - 1
+//                        for (i in 0 until size) {
+//                            homeViewModel.addDataCuaca(
+//                                Weather(
+//                                    weatherData[i][1],
+//                                    weatherData[i][6],
+//                                    weatherData[i][7],
+//                                    weatherData[i][8],
+//                                    weatherData[i][9],
+//                                    weatherData[i][10]
+//                                )
+//                            )
+//                        }
+//
+//                    }
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+//            }
+//        }
+//    }
 
     private fun checkDataLocation() {
         homeViewModel.checkDataLoc().asLiveData().observe(viewLifecycleOwner) { data ->
             if (data.isEmpty()) {
-                val intent = Intent(requireContext(), SearchAct::class.java)
+                val intent = Intent(requireContext(), SearchActivity::class.java)
                 findNavController()
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun getLocation(loc: Userloc) {
+        binding.apply {
+            tvKecamatan.text = loc.kec
+            tvKota.text = loc.kab
         }
     }
 

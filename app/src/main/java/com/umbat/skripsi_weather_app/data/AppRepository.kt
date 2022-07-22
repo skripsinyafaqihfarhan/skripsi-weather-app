@@ -1,27 +1,41 @@
 package com.umbat.skripsi_weather_app.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
+import com.bumptech.glide.load.engine.Resource
 import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import com.umbat.skripsi_weather_app.data.local.room.UserlocDao
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDao
+import com.umbat.skripsi_weather_app.data.response.LoginResult
+import com.umbat.skripsi_weather_app.model.StateModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class AppRepository(
     private val weatherDao: WeatherDao,
     private val userlocDao: UserlocDao,
     private val pref: DataPreference
 ) {
-    fun checkDataLoc(): Flow<List<Userloc>> = userlocDao.selectAllData()
+    private val _loginResult = MutableLiveData<LoginResult?>()
+    val loginResult: MutableLiveData<LoginResult?> = _loginResult
 
-    suspend fun addUserloc(userloc: Userloc){
-        userlocDao.addDataLoc(userloc)
+    fun checkDataLoc(): Flow<List<Userloc>> = userlocDao.selectedLoc()
+
+    suspend fun addDataLoc(location: Userloc) {
+        userlocDao.addDataLoc(location)
     }
 
-    fun getUserloc(): Userloc = userlocDao.getLoc()
+    fun getDataLoc(): Flow<Userloc?> = userlocDao.getLoc()
 
     suspend fun deleteDataLoc() {
-        userlocDao.deleteDataLoc()
+        userlocDao.deleteLoc()
+    }
+
+    suspend fun updateLoc(isSelected: Boolean, kode: String) {
+        userlocDao.updateLoc(isSelected, kode)
     }
 
     suspend fun addDataToLocal(weather: Weather) {
@@ -32,6 +46,19 @@ class AppRepository(
 
     suspend fun saveThemeSettings(isDarkModeActive: Boolean) {
         pref.saveThemeSettings(isDarkModeActive)
+    }
+
+    fun getThemeSettings(): LiveData<Boolean> {
+        return pref.getThemeSettings().asLiveData()
+    }
+
+    suspend fun saveLocation() {
+        val session = StateModel(
+            kec = "",
+            kab = "",
+            isSet = true
+        )
+        pref.saveLocation(session)
     }
 
     companion object {

@@ -31,7 +31,15 @@ class HomeViewModel(private val repo: AppRepository) : ViewModel() {
 
     fun checkDataLoc()= repo.checkDataLoc()
 
-    fun getUserloc() = repo.getUserloc().asLiveData()
+    fun getUserloc() = repo.getDataLococ().asLiveData()
+//    {
+//        var result = MutableLiveData<Userloc>()
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val data = repo.getUserloc()
+//            result.postValue(data)
+//        }
+//        return  result
+//    }
 
     fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
         return pref.getThemeSettings().asLiveData()

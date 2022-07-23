@@ -9,5 +9,5 @@ class WeatherWidgetViewModel(private val repo: AppRepository): ViewModel() {
 
     fun readDataCuaca(time: String) = repo.readData(time).asLiveData()
 
-    fun getUserloc() = repo.getUserloc().asLiveData()
+    //fun getUserloc() = repo.getUserloc().asLiveData()
 }

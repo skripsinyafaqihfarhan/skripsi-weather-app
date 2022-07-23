@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,11 +23,18 @@ import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
 import com.umbat.skripsi_weather_app.data.remote.ResponseData
+import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
+import com.umbat.skripsi_weather_app.utils.DataDefine
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -64,21 +72,29 @@ class HomeFragment : Fragment() {
         val repo = AppRepository(daoWeather,daoUserloc,pref)
         val factory = ViewModelFactory(repo)
 
-        homeViewModel = ViewModelProvider(this@HomeFragment,factory).get(HomeViewModel::class.java)
+        homeViewModel = ViewModelProvider(this,factory).get(HomeViewModel::class.java)
 
         homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
-            val kodeKec = data.kodeKec
-            val prov = data.provID
-            homeViewModel.getAllWeatherData(kodeKec,prov).observe(viewLifecycleOwner) { response ->
-                if (response != null) {
-                    when (response) {
-                        is Resource.Loading -> onLoading()
-                        is Resource.Success -> showResult(response.data)
-                        is Resource.Error -> onError()
-                    }
-                }
+            binding.apply {
+                tvKecamatan.text = data?.kec
+                tvKota.text = data?.kab
             }
         }
+
+//        homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
+//            val kodeKec = data.kodeKec
+//            val prov = data.provID
+//            homeViewModel.getAllWeatherData(kodeKec,prov).observe(viewLifecycleOwner) { response ->
+//                if (response != null) {
+//                    when (response) {
+//                        is Resource.Loading -> onLoading()
+//                        is Resource.Success -> showResult(response.data)
+//                        is Resource.Error -> onError()
+//                    }
+//                }
+//            }
+//        }
+
 
         calendar = Calendar.getInstance()
         simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
@@ -92,9 +108,44 @@ class HomeFragment : Fragment() {
         daySix = parsedDate.plusDays(5).toString()
         daySeven = parsedDate.plusDays(6).toString()
 
- /*       homeViewModel.readDataCuaca("$today 12:00:00").observe(viewLifecycleOwner) { data ->
+        homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
+            println(data)
+            if (data != null) {
+                val kodeKec: String = data.kodeKec
+                val prov: String = data.provID
+                val scan = Scan()
+                try {
+                    GlobalScope.launch {
+                        val defer = async(Dispatchers.IO) {
+                            scan.getContent(kodeKec, prov)
+                        }
+
+                        val weatherData = defer.await()
+                        val size = weatherData.size - 1
+                        for (i in 0 until size) {
+                            homeViewModel.addDataCuaca(
+                                Weather(
+                                    0,
+                                    weatherData.get(i).dateTime,
+                                    weatherData.get(i).rhNow,
+                                    weatherData.get(i).tempNow,
+                                    weatherData.get(i).weatherCond,
+                                    weatherData.get(i).windDr,
+                                    weatherData.get(i).windSp,
+                                )
+                            )
+                        }
+                    }
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+        homeViewModel.readDataCuaca("$today 12:00:00").observe(viewLifecycleOwner) { data ->
             binding.apply {
                 val define = DataDefine()
+                Log.d("tes", "data to be shown: $data")
                 binding.tvTemperature.text = data?.tempNow
                 binding.tvHumidityValue.text = data?.rhNow
                 binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
@@ -103,7 +154,6 @@ class HomeFragment : Fragment() {
             }
         }
 
-*/
 
 
         /**

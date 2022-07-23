@@ -25,7 +25,7 @@ class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: 
 
     fun deleteDataLoc() { userlocDao.deleteDataLoc() }
 
-    fun getUserloc(): Flow<Userloc> = userlocDao.getLoc()
+    fun getDataLococ(): Flow<Userloc?> = userlocDao.getLoc()
 
     fun getAllDataWeather(kode: String, provID: String): Flow<Resource<List<Weather>>> = flow {
         emit(Resource.Loading())

@@ -19,13 +19,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.data.local.DataPreference
+import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
+import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
 import com.umbat.skripsi_weather_app.utils.DataDefine
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 

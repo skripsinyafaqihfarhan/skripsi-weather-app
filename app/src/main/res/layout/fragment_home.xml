@@ -254,45 +254,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/today_condition"
         app:layout_constraintTop_toBottomOf="@+id/today_condition" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible" />
-
-    <ImageView
-        android:id="@+id/iv_error_list"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:contentDescription="Empty Data"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_warning"
-        tools:visibility="visible" />
-
-    <TextView
-        android:id="@+id/tv_message_unexpected"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="158dp"
-        android:textAlignment="center"
-        android:textColor="?colorSecondary"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="Mohon periksa Internet kamu."
-        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

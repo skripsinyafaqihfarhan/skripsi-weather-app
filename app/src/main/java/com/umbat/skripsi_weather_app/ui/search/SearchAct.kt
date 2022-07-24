@@ -35,25 +35,17 @@ class SearchAct : AppCompatActivity() {
 
         binding.button.setOnClickListener {
             removeOldData()
+            removeWeatherDB()
             insertDataToDatabase()
         }
     }
 
-//    private fun initiateViewModel() {
-//        val weatherDB = WeatherDatabase.getInstance(applicationContext)
-//        val daoWeather = weatherDB.weatherDao()
-//        val userlocDB = UserlocDatabase.getInstance(applicationContext)
-//        val daoUserloc = userlocDB.userlocDao()
-//        pref = DataPreference.getInstance(applicationContext.dataStore)
-//        val repo = AppRepository(daoWeather,daoUserloc,pref)
-//        val factory = ViewModelFactory(repo)
-//
-//        searchViewModel = ViewModelProvider(this, factory).get(SearchActViewModel::class.java)
-//    }
-
-    private fun removeOldData() {
+    fun removeOldData() {
         searchViewModel.deleteDataLoc()
-//        searchViewModel.deleteDataWeather()
+    }
+
+    fun removeWeatherDB() {
+        searchViewModel.deleteDataWeather()
     }
 
     private fun insertDataToDatabase() {
@@ -83,7 +75,7 @@ class SearchAct : AppCompatActivity() {
         }
     }
 
-    private fun insertWeatherData() {
+    fun insertWeatherData() {
         searchViewModel.getDataloc().observe(this, Observer { dataLoc ->
             if (dataLoc != null) {
                 val kodeKec: String = dataLoc.kodeKec

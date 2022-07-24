@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
 
     private fun checkMatchTime(currentTime: Calendar) {
         val currentHour = currentTime[Calendar.HOUR_OF_DAY]
-        val currentHourMinute = currentTime[Calendar.HOUR_OF_DAY] * 60 + currentTime[Calendar.MINUTE]
+        val currentSecond = currentTime[Calendar.HOUR_OF_DAY] * 3600 + currentTime[Calendar.SECOND]
         when {
             currentHour < 1 -> {
                 timeVariable = "$yesterday 15:00:00"
@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
             }currentHour < 22 -> {
                 timeVariable = "$today 12:00:00"
                 textTime = "Prakiraan pukul: 19.00--21.59"
-            }currentHourMinute < 23 * 60 + 59 -> {
+            }currentSecond < 23 * 3600 + 59 -> {
                 timeVariable = "$today 15:00:00"
                 textTime = "Prakiraan pukul: 22.00--23.59"
             }

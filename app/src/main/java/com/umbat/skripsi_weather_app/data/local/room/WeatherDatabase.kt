@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
+import com.umbat.skripsi_weather_app.data.room.WeatherDao
 
 @Database(
     entities = [Weather::class],

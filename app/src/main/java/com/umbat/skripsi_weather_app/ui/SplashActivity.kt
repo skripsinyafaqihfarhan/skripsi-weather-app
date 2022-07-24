@@ -33,25 +33,19 @@ class SplashActivity : Activity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        val weatherDB = WeatherDatabase.getInstance(applicationContext)
-        val daoWeather = weatherDB.weatherDao()
-        val userlocDB = UserlocDatabase.getInstance(applicationContext)
-        val daoUserloc = userlocDB.userlocDao()
-        val pref = DataPreference.getInstance(applicationContext.dataStore)
-        val repo = AppRepository(daoWeather,daoUserloc,pref)
 
         CoroutineScope(Dispatchers.Default).launch {
             // If not first time redirect to MainActivity
-            val cekData = repo.checkDataLoc()
-
-            if (!cekData) {
-                moveToSearchActivity(); return@launch
-            }
+//            val cekData = repo.checkDataLoc()
+//
+//            if (!cekData) {
+//                moveToSearchActivity(); return@launch
+//            }
 
             val TIMEOUT = 1000L
 
             Handler(mainLooper).postDelayed({
-                moveToMainActivity(); return@postDelayed
+                moveToSearchActivity(); return@postDelayed
             }, TIMEOUT)
         }
     }

@@ -28,7 +28,7 @@ abstract class UserlocDatabase: RoomDatabase() {
                     context.applicationContext,
                     UserlocDatabase::class.java,
                     "UserlocDB"
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance
             }

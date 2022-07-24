@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.umbat.skripsi_weather_app.R
+import com.umbat.skripsi_weather_app.ui.search.SearchAct
 import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 
 @SuppressLint("CustomSplashScreen")
@@ -17,7 +18,7 @@ class SplashActivity : Activity() {
         val TIMEOUT = 1000L
 
         Handler(mainLooper).postDelayed({
-            val intent = Intent(this, SearchActivity::class.java)
+            val intent = Intent(this, SearchAct::class.java)
             startActivity(intent)
             finish()
         }, TIMEOUT)

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,18 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.umbat.skripsi_weather_app.MainActivity
 import com.umbat.skripsi_weather_app.R
-import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
 import com.umbat.skripsi_weather_app.model.StateModel
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
-import com.umbat.skripsi_weather_app.ui.home.HomeFragment
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -114,8 +110,8 @@ class SearchActivity : AppCompatActivity() {
 //                            )
                             // TODO: This wont work since intent to fragment is prohibited. Intent must go to an activity.
                             Intent(this@SearchActivity, MainActivity::class.java).also{
-                                it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
-                                it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
+//                                it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
+//                                it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
                                 startActivity(it)
                             }
                         }

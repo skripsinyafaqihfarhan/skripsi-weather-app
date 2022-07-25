@@ -13,12 +13,12 @@ interface UserlocDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDataLoc(data: Userloc)
 
-    @Query("SELECT EXISTS(SELECT * FROM UserlocTable)")
+    @Query("SELECT EXISTS(SELECT * FROM userloc)")
     fun isExist(): Boolean
 
-    @Query("SELECT * FROM UserlocTable LIMIT 1")
+    @Query("SELECT * FROM userloc LIMIT 1")
     fun getLoc(): Flow<Userloc>
 
-    @Query("DELETE FROM UserlocTable")
+    @Query("DELETE FROM userloc")
     fun deleteDataLoc()
 }

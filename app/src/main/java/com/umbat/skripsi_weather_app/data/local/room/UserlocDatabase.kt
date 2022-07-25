@@ -28,8 +28,7 @@ abstract class UserlocDatabase: RoomDatabase() {
                     context.applicationContext,
                     UserlocDatabase::class.java,
                     "UserlocDB"
-                )
-                    .allowMainThreadQueries()
+                ).allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

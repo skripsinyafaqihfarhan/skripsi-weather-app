@@ -86,8 +86,8 @@ class HomeFragment : Fragment() {
                 binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
                 binding.tvWindValue.text = data?.windSp
                 binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
-                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
-                binding.weatherIcon.setImageResource(imgResId)
+//                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
+//                binding.weatherIcon.setImageResource(imgResId)
             }
         }
 
@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
 
     private fun checkMatchTime(currentTime: Calendar) {
         val currentHour = currentTime[Calendar.HOUR_OF_DAY]
-        val currentSecond = currentTime[Calendar.HOUR_OF_DAY] * 3600 + currentTime[Calendar.SECOND]
+        val currentSecond = currentTime[Calendar.HOUR_OF_DAY] * 60 + currentTime[Calendar.MINUTE]
         when {
             currentHour < 1 -> {
                 timeVariable = "$yesterday 15:00:00"
@@ -153,7 +153,7 @@ class HomeFragment : Fragment() {
             }currentHour < 22 -> {
                 timeVariable = "$today 12:00:00"
                 textTime = "Prakiraan pukul: 19.00--21.59"
-            }currentSecond < 23 * 3600 + 59 -> {
+            }currentSecond < 23 * 60 + 59 -> {
                 timeVariable = "$today 15:00:00"
                 textTime = "Prakiraan pukul: 22.00--23.59"
             }

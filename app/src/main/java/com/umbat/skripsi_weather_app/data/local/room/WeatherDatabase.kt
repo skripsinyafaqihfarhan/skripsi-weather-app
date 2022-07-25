@@ -9,7 +9,7 @@ import com.umbat.skripsi_weather_app.data.room.WeatherDao
 
 @Database(
     entities = [Weather::class],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class WeatherDatabase: RoomDatabase() {
@@ -28,8 +28,7 @@ abstract class WeatherDatabase: RoomDatabase() {
                     context.applicationContext,
                     WeatherDatabase::class.java,
                     "WeatherDB"
-                )
-                    .allowMainThreadQueries()
+                ).allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance

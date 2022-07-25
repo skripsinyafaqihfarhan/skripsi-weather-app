@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "UserlocTable")
+@Entity(tableName = "userloc")
 data class Userloc (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")

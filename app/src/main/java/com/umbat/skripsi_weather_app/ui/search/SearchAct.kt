@@ -1,6 +1,8 @@
 package com.umbat.skripsi_weather_app.ui.search
 
-import android.content.Context
+
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -8,7 +10,6 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import com.umbat.skripsi_weather_app.MainActivity
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
@@ -16,11 +17,13 @@ import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.databinding.ActSearchBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
+import com.umbat.skripsi_weather_app.utils.ScheduleReceiver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.*
 
 class SearchAct : AppCompatActivity() {
 
@@ -28,6 +31,9 @@ class SearchAct : AppCompatActivity() {
     private val searchViewModel: SearchActViewModel by viewModels {
         ViewModelFactory.getInstance(applicationContext)
     }
+    private lateinit var calendar: Calendar
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +44,37 @@ class SearchAct : AppCompatActivity() {
             removeOldData()
             removeWeatherDB()
             insertDataToDatabase()
+            dataSchedular()
         }
+    }
+
+    private fun dataSchedular() {
+        cancelSchedular()
+
+        calendar = Calendar.getInstance()
+        calendar[Calendar.HOUR_OF_DAY] = 23
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MILLISECOND] = 0
+
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ScheduleReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(this,0,intent,0)
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,pendingIntent
+        )
+    }
+
+    private fun cancelSchedular() {
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ScheduleReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(this,0,intent,0)
+
+        alarmManager.cancel(pendingIntent)
     }
 
     fun removeOldData() {
@@ -79,7 +115,7 @@ class SearchAct : AppCompatActivity() {
     fun insertWeatherData() {
         searchViewModel.getDataloc().observe(this, Observer { dataLoc ->
             if (dataLoc != null) {
-                val kodeKec: String = dataLoc.kec
+                val kodeKec: String = dataLoc.kodeKec
                 val provin: String = dataLoc.provID
                 val scan = Scan()
                 try {

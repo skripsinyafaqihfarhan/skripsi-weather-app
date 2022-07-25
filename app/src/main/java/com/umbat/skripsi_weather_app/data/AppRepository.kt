@@ -12,17 +12,13 @@ class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: 
 
     fun checkDataLoc(): Boolean = userlocDao.isExist()
 
-    suspend fun addDataloc(userloc: Userloc) {
-        userlocDao.addDataLoc(userloc) }
+    suspend fun addDataloc(userloc: Userloc) { userlocDao.addDataLoc(userloc) }
 
     fun deleteDataLoc() { userlocDao.deleteDataLoc() }
 
     fun getDataLoc(): Flow<Userloc?> = userlocDao.getLoc()
 
-
-    suspend fun addDataWeather(weather: Weather) {
-        weatherDao.addDataToLocal(weather)
-    }
+    suspend fun addDataWeather(weather: Weather) { weatherDao.addDataToLocal(weather) }
 
     fun deleteDataWeather() { weatherDao.deleteWeatherData() }
 

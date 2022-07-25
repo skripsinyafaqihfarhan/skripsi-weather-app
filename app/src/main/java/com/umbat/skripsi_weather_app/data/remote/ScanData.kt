@@ -1,6 +1,5 @@
 package com.umbat.skripsi_weather_app.data.remote
 
-import android.util.Log
 import java.io.InputStreamReader
 import java.util.*
 import kotlin.collections.ArrayList

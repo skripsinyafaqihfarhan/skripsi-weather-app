@@ -1,15 +1,22 @@
 package com.umbat.skripsi_weather_app.data.local.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "userloc")
 data class Userloc (
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val kode: String = "",
-    val kec: String = "",
-    val kab: String = "",
-    val prov: String = "",
-    val provID: String = ""
+    @ColumnInfo(name = "ID")
+    val id: Int,
+    @ColumnInfo(name = "Kode")
+    val kodeKec: String,
+    @ColumnInfo(name = "ProvID")
+    val provID: String,
+    @ColumnInfo(name = "Kecamatan")
+    val kec: String,
+    @ColumnInfo(name = "Kota/Kab")
+    val kab: String,
+    @ColumnInfo(name = "Provinsi")
+    val prov: String
 )

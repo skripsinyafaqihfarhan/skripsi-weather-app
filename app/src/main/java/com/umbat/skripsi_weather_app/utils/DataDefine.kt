@@ -49,25 +49,25 @@ class DataDefine {
             }
         }
     }
-    fun gambarCuaca(x: String,y: Calendar): Int {
-        val currentTime = y[Calendar.HOUR_OF_DAY]
-        if (x == "3") {return R.drawable.berawan}
-        else if (x == "4") {return R.drawable.berawan}
-        else if (x == "5") {return R.drawable.udarakabur}
-        else if (x == "10") {return R.drawable.udarakabur}
-        else if (x == "45") {return R.drawable.udarakabur}
-        else if (x == "60") {return R.drawable.hujanringan}
-        else if (x == "61") {return R.drawable.hujansedang}
-        else if (x == "63") {return R.drawable.hujanlebat}
-        else if (x == "80") {return R.drawable.hujansedang}
-        else if (x == "95") {return R.drawable.hujanpetir}
-        else if (x == "97") {return R.drawable.hujanpetir}
-        else if (x == "0" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahsiang}
-        else if (x == "1" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawansiang}
-        else if (x == "2" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawansiang}
-        else if (x == "0" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahmalam}
-        else if (x == "1" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawanmalam}
-        else if (x == "2" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawanmalam}
-        else {return R.drawable.cerahberawansiang}
-    }
+//    fun gambarCuaca(x: String,y: Calendar): Int {
+//        val currentTime = y[Calendar.HOUR_OF_DAY]
+//        if (x == "3") {return R.drawable.berawan}
+//        else if (x == "4") {return R.drawable.berawan}
+//        else if (x == "5") {return R.drawable.udarakabur}
+//        else if (x == "10") {return R.drawable.udarakabur}
+//        else if (x == "45") {return R.drawable.udarakabur}
+//        else if (x == "60") {return R.drawable.hujanringan}
+//        else if (x == "61") {return R.drawable.hujansedang}
+//        else if (x == "63") {return R.drawable.hujanlebat}
+//        else if (x == "80") {return R.drawable.hujansedang}
+//        else if (x == "95") {return R.drawable.hujanpetir}
+//        else if (x == "97") {return R.drawable.hujanpetir}
+//        else if (x == "0" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahsiang}
+//        else if (x == "1" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawansiang}
+//        else if (x == "2" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawansiang}
+//        else if (x == "0" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahmalam}
+//        else if (x == "1" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawanmalam}
+//        else if (x == "2" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawanmalam}
+//        else {return R.drawable.cerahberawansiang}
+//    }
 }

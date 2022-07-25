@@ -19,16 +19,29 @@ class HomeViewModel(private val repo: AppRepository) : ViewModel() {
         }
     }
 
-    fun readDataCuaca(time: String) = repo.readData(time).asLiveData()
-
-    fun checkDataLoc(): Flow<List<Userloc>> {
-        return repo.checkDataLoc()
+    fun addAllDataCuaca(data: MutableList<Weather>?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.addAllDataToLocal(data)
+        }
     }
 
-    fun getUserloc() = repo.getUserloc()
+    fun getAllWeatherData(kode: String, provID: String) = repo.getAllDataWeather(kode,provID).asLiveData()
+
+    fun readDataCuaca(time: String) = repo.readData(time).asLiveData()
+
+    fun checkDataLoc()= repo.checkDataLoc()
+
+    fun getUserLoc() = repo.getDataLoc().asLiveData()
+//    {
+//        var result = MutableLiveData<Userloc>()
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val data = repo.getUserloc()
+//            result.postValue(data)
+//        }
+//        return  result
+//    }
 
     fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
         return pref.getThemeSettings().asLiveData()
     }
-
 }

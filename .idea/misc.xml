@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/STMKG/Proposal-Skripsi/skripsi-weather-app/skripsi-weather-app/app/src/main/res/drawable-nodpi/ic_warning.xml" value="0.1615" />
+        <entry key="..\:/STMKG/Proposal-Skripsi/skripsi-weather-app/skripsi-weather-app/app/src/main/res/layout/act_search.xml" value="0.209375" />
+        <entry key="..\:/STMKG/Proposal-Skripsi/skripsi-weather-app/skripsi-weather-app/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
         <entry key="..\:/Users/Farhan Pratama/FundamentalAndroid/skripsiweatherapp/app/src/main/res/drawable/compass.xml" value="0.1" />
         <entry key="..\:/Users/Farhan Pratama/FundamentalAndroid/skripsiweatherapp/app/src/main/res/drawable/humidity.xml" value="0.1" />
         <entry key="..\:/Users/Farhan Pratama/FundamentalAndroid/skripsiweatherapp/app/src/main/res/drawable/ic_menu_camera.xml" value="0.13" />
@@ -11,6 +14,11 @@
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/compass.xml" value="0.12" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/humidity.xml" value="0.12" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_asset_10.xml" value="0.102" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_asset_11.xml" value="0.102" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_asset_3.xml" value="0.1" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_asset_4.xml" value="0.102" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_asset_8.xml" value="0.102" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_baseline_language_24.xml" value="0.1095" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_baseline_location_on_24.xml" value="0.1315" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1095" />
@@ -18,6 +26,7 @@
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/update.xml" value="0.1315" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/drawable/wind.xml" value="0.12" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/act_search.xml" value="0.25" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/activity_main.xml" value="0.16" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/activity_search.xml" value="0.2" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/activity_settings.xml" value="0.18" />
@@ -34,16 +43,19 @@
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/item_a_day_weather.xml" value="0.2" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/item_location_list.xml" value="0.25" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/nav_header_main.xml" value="0.2" />
-        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/weather_widget.xml" value="0.5" />
+        <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/weather_widget.xml" value="0.33" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/layout/weather_widget1.xml" value="0.13504273504273503" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/menu/activity_main_drawer.xml" value="0.209375" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/menu/main.xml" value="0.16203703703703703" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/xml/preferances.xml" value="0.1" />
         <entry key="..\:/Users/Farhan Pratama/skripsiweatherapp/app/src/main/res/xml/preferences.xml" value="0.25" />
+        <entry key="..\:/Users/Ibrahimsyah Z/AndroidStudioProjects/skripsi-weather-app/app/src/main/res/layout/activity_search.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/Ibrahimsyah Z/AndroidStudioProjects/skripsi-weather-app/app/src/main/res/layout/fragment_home.xml" value="0.4" />
+        <entry key="..\:/Users/Ibrahimsyah Z/AndroidStudioProjects/skripsi-weather-app/app/src/main/res/layout/item_location_list.xml" value="0.264" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

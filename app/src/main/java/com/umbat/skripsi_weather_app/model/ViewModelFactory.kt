@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.ui.home.HomeViewModel
-import com.umbat.skripsi_weather_app.ui.search.SearchActViewModel
 import com.umbat.skripsi_weather_app.ui.search.SearchViewModel
+import com.umbat.skripsi_weather_app.ui.settings.SettingsViewModel
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherViewModel
 import com.umbat.skripsi_weather_app.ui.widget.WeatherWidgetViewModel
 import com.umbat.skripsi_weather_app.utils.Injection
@@ -28,8 +28,8 @@ class ViewModelFactory (private val repo: AppRepository):
             modelClass.isAssignableFrom(SearchViewModel::class.java) -> {
                 SearchViewModel(repo) as T
             }
-            modelClass.isAssignableFrom(SearchActViewModel::class.java) -> {
-                SearchActViewModel(repo) as T
+            modelClass.isAssignableFrom(SettingsViewModel::class.java) -> {
+                SettingsViewModel(repo) as T
             }
             else -> throw IllegalArgumentException("Unknown View Model $modelClass")
         }

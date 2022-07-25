@@ -1,5 +1,6 @@
 package com.umbat.skripsi_weather_app.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -46,6 +47,7 @@ class HomeFragment : Fragment() {
     private lateinit var textTime: String
     private lateinit var dayNow: String
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

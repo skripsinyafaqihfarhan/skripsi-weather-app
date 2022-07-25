@@ -10,7 +10,7 @@ class Scan {
         val link = URL("https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/CSV/kecamatanforecast-$provID.csv")
         val linkStream = InputStreamReader(link.openConnection().getInputStream())
         val dataScan = scanData(linkStream).records
-        return scanKode(dataScan as ArrayList<List<String>>, kodeKec)
+        return scanKode(dataScan as ArrayList<List<String>>,kodeKec)
     }
 
     private fun scanKode(dataScan: ArrayList<List<String>>, kodeKec: String): MutableList<Weather> {

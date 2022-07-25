@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.umbat.skripsi_weather_app.MainActivity
 import com.umbat.skripsi_weather_app.R
+import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.entity.Userloc
 import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
@@ -47,7 +48,7 @@ class SearchActivity : AppCompatActivity() {
         adapter = SearchAdapter()
         adapter.notifyDataSetChanged()
 
-//        val preferences = DataPreference.getInstance(dataStore)
+        val preferences = DataPreference.getInstance(dataStore)
 
 //        searchViewModel.getLocation().observe(this) { loc ->
 //            if (loc.isSelected) moveToMainActivity()

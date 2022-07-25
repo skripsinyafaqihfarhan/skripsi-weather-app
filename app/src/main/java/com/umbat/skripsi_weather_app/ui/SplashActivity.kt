@@ -21,6 +21,7 @@ import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
+import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -64,7 +65,7 @@ class SplashActivity : Activity(){
     }
 
     private fun moveToSearchActivity() {
-        val intent = Intent(this@SplashActivity, SearchAct::class.java)
+        val intent = Intent(this@SplashActivity, SearchActivity::class.java)
         intent.flags =Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()

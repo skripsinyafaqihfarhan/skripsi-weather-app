@@ -60,7 +60,7 @@
             android:exported="false"
             android:theme="@style/Theme.Skripsiweatherapp.NoActionBar"/>
         <activity
-            android:name=".ui.search.SearchAct"
+            android:name=".ui.search.SearchActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
 

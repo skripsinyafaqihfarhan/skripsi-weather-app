@@ -9,9 +9,6 @@ interface WeatherDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addDataToLocal(data: Weather)
 
-//    @Delete
-//    suspend fun delete()
-
     @Query("DELETE FROM weatherdata")
     fun deleteWeatherData()
 

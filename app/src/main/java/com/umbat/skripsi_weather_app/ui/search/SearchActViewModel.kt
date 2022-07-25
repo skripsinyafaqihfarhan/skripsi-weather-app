@@ -12,28 +12,20 @@ import kotlinx.coroutines.launch
 class SearchActViewModel(private val repo: AppRepository): ViewModel() {
 
     fun addDataLoc(data: Userloc) {
-        viewModelScope.launch (Dispatchers.IO) {
-            repo.addDataloc(data)
-        }
+        viewModelScope.launch (Dispatchers.IO) { repo.addDataloc(data) }
     }
 
     fun deleteDataLoc() {
-        viewModelScope.launch (Dispatchers.IO) {
-            repo.deleteDataLoc()
-        }
+        viewModelScope.launch (Dispatchers.IO) { repo.deleteDataLoc() }
     }
 
     fun getDataloc() = repo.getDataLoc().asLiveData()
 
     fun deleteDataWeather() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.deleteDataWeather()
-        }
+        viewModelScope.launch(Dispatchers.IO) { repo.deleteDataWeather() }
     }
 
     fun addDataWeather(weather: Weather) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.addDataWeather(weather)
-        }
+        viewModelScope.launch(Dispatchers.IO) { repo.addDataWeather(weather) }
     }
 }

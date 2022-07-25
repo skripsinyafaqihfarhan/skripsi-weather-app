@@ -122,9 +122,9 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveLocation() {
-        searchViewModel.saveLocation()
-    }
+//    private fun saveLocation() {
+//        searchViewModel.saveLocation()
+//    }
 
     private fun moveToMainActivity() {
         val intent = Intent(this@SearchActivity, MainActivity::class.java)

@@ -13,7 +13,7 @@ class SearchActViewModel(private val repo: AppRepository): ViewModel() {
 
     fun addDataLoc(data: Userloc) {
         viewModelScope.launch (Dispatchers.IO) {
-            repo.addUserloc(data)
+            repo.addDataloc(data)
         }
     }
 

@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isVisible
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -20,22 +19,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.data.local.DataPreference
-import com.umbat.skripsi_weather_app.data.local.entity.Userloc
-import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
-import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
-import com.umbat.skripsi_weather_app.ui.search.SearchActivity
-import com.umbat.skripsi_weather_app.ui.settings.SettingsViewModel
+import com.umbat.skripsi_weather_app.ui.search.SearchAct
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
 import com.umbat.skripsi_weather_app.utils.DataDefine
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,15 +35,16 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var homeViewModel: HomeViewModel
-    lateinit var simpleDateFormat: SimpleDateFormat
-    lateinit var calendar: Calendar
-    lateinit var today: String
-    lateinit var dayTwo: String
-    lateinit var dayThree: String
-    lateinit var dayFour: String
-    lateinit var dayFive: String
-    lateinit var daySix: String
-    lateinit var daySeven: String
+    private lateinit var pref: DataPreference
+    private lateinit var dateFormat: SimpleDateFormat
+    private lateinit var dayFormat: SimpleDateFormat
+    private lateinit var calendarNow: Calendar
+    private lateinit var calendarYesterday: Calendar
+    private lateinit var today: String
+    private lateinit var yesterday: String
+    private lateinit var timeVariable: String
+    private lateinit var textTime: String
+    private lateinit var dayNow: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,92 +53,31 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        val weatherDB = WeatherDatabase.getInstance(requireContext())
-        val daoWeather = weatherDB.weatherDao()
-        val userlocDB = UserlocDatabase.getInstance(requireContext())
-        val daoUserloc = userlocDB.userlocDao()
-        val pref = DataPreference.getInstance(requireContext().dataStore)
-        val repo = AppRepository(daoWeather,daoUserloc,pref)
-        val factory = ViewModelFactory(repo)
-        val homeViewModel = ViewModelProvider(this,factory)[HomeViewModel::class.java]
 
-//        homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
-//            val kodeKec = data.kodeKec
-//            val prov = data.provID
-//            homeViewModel.getAllWeatherData(kodeKec,prov).observe(viewLifecycleOwner) { response ->
-//                if (response != null) {
-//                    when (response) {
-//                        is Resource.Loading -> onLoading()
-//                        is Resource.Success -> showResult(response.data)
-//                        is Resource.Error -> onError()
-//                    }
-//                }
-//            }
-//        }
+        initiateViewModel()
 
-        homeViewModel.getUserLoc().observe(viewLifecycleOwner) { data ->
-            println(data)
-            if (data != null) {
-                val kodeKec: String = data.kode
-                val prov: String = data.provID
-                val scan = Scan()
-                try {
-                    GlobalScope.launch {
-                        val defer = async(Dispatchers.IO) {
-                            scan.getContent(kodeKec, prov)
-                        }
+        calendarNow = Calendar.getInstance()
+        calendarYesterday = Calendar.getInstance()
+        calendarYesterday.add(Calendar.DATE,-1)
+        dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        today = dateFormat.format(calendarNow.time)
+        yesterday = dateFormat.format(calendarYesterday.time)
 
-                        val weatherData = defer.await()
-                        val size = weatherData.size - 1
-                        for (i in 0 until size) {
-                            homeViewModel.addDataCuaca(
-                                Weather(
-                                    0,
-                                    weatherData.get(i).dateTime,
-                                    weatherData.get(i).rhNow,
-                                    weatherData.get(i).tempNow,
-                                    weatherData.get(i).weatherCond,
-                                    weatherData.get(i).windDr,
-                                    weatherData.get(i).windSp,
-                                )
-                            )
-                        }
-                    }
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+        checkMatchTime(calendarNow)
+
+        dayFormat = SimpleDateFormat("EEE, d MMM yyyy")
+        dayNow = dayFormat.format(calendarNow.time)
+
+        homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
+            binding.apply {
+                tvKecamatan.text = data?.kec
+                tvKota.text = data?.kab
+                tvDaydate.text = dayNow
+                tvTime.text = textTime
             }
         }
 
-        // TODO: this could be the place where HomeFragment load dark mode from SettingsViewModel, unfortunately ViewModelFactory's parameter refers to AppRepository that can not be used for DataStore
-        val settingsViewModel = ViewModelProvider(this, ViewModelFactory(repo)).get(
-            SettingsViewModel::class.java
-        )
-
-        settingsViewModel.getThemeSettings(pref).observe(requireActivity()
-        ) { isDarkModeActive: Boolean ->
-            if (isDarkModeActive) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            }
-        }
-
-//        getWeatherData()
-
-//        calendar = Calendar.getInstance()
-//        simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
-//        today = simpleDateFormat.format(calendar.time)
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-//        val parsedDate = LocalDate.parse(today, formatter)
-//        dayTwo = parsedDate.plusDays(1).toString()
-//        dayThree = parsedDate.plusDays(2).toString()
-//        dayFour = parsedDate.plusDays(3).toString()
-//        dayFive = parsedDate.plusDays(4).toString()
-//        daySix = parsedDate.plusDays(5).toString()
-//        daySeven = parsedDate.plusDays(6).toString()
-
-        homeViewModel.readDataCuaca("$today 12:00:00").observe(viewLifecycleOwner) { data ->
+        homeViewModel.readDataCuaca(timeVariable).observe(viewLifecycleOwner) { data ->
             binding.apply {
                 val define = DataDefine()
                 Log.d("tes", "data to be shown: $data")
@@ -156,25 +86,16 @@ class HomeFragment : Fragment() {
                 binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
                 binding.tvWindValue.text = data?.windSp
                 binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
+                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
+                binding.weatherIcon.setImageResource(imgResId)
             }
         }
-
-        /**
-         * Day, Date, Time
-         */
-//        val current = LocalDateTime.now()
-//
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
-//        val formatted = current.format(formatter)
-//
-//        val tvDayDate: TextView = binding.tvDaydate
-//        tvDayDate.text
 
         /**
          * Intent to 7 Days Condition Activity
          */
         val next7Days: TextView = binding.next7Days
-        next7Days.setOnClickListener {
+        next7Days.setOnClickListener{
             val intent = Intent(requireContext(), WeekWeatherActivity::class.java)
             startActivity(intent)
 
@@ -185,68 +106,72 @@ class HomeFragment : Fragment() {
          * Intent to add location
          */
         val addLocation: Button = binding.btnAddLocation
-        addLocation.setOnClickListener {
-            val intent = Intent(requireContext(), SearchActivity::class.java)
+        addLocation.setOnClickListener{
+            val intent = Intent(requireContext(), SearchAct::class.java)
             findNavController()
             startActivity(intent)
+        }
+
+        val preference = DataPreference.getInstance(requireContext().dataStore)
+
+        homeViewModel.getThemeSettings(preference).observe(requireActivity()
+        ) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
         }
         return root
     }
 
-    private fun showResult(data: List<Weather>?) {
-        if (data.isNullOrEmpty()) {
-            showInfo(isProgressBarShow = false, isImageShow = true, isMessageShow = true)
-            return
-        }
-        showInfo(isProgressBarShow = false, isImageShow = false, isMessageShow = false)
-        val size = data.size - 1
-        var dataCuaca: MutableList<Weather>? = null
-        for (i in 0 until size) {
-            dataCuaca?.addAll(listOf(Weather(i,data[i].dateTime,data[i].rhNow,
-                data[i].tempNow,data[i].weatherCond,data[i].windDr,
-                data[i].windSp)))
-        }
-        homeViewModel.addAllDataCuaca(dataCuaca)
-    }
-
-    /**
-     * Handle state when response is Loading.
-     * Show text info with the message
-     * */
-//    private fun onLoading() {
-//        binding.tvMessageUnexpected.text = "Retrieving data, please wait"
-//        showInfo(isProgressBarShow = true, isImageShow = false)
-//    }
-
-    /**
-     * Handle state when response is Error.
-     * Show text info with the message
-     * */
-//    private fun onError() {
-//        binding.tvMessageUnexpected.text = "An error occured, please try again later"
-//        showInfo(isProgressBarShow = false, isImageShow = true)
-//    }
-
-    /**
-     * Show image, progress bar and text info
-     * for state loading or error
-     * */
-    private fun showInfo(
-        isProgressBarShow: Boolean,
-        isImageShow: Boolean,
-        isMessageShow: Boolean = true
-    ) {
-        binding.progressBar.isVisible = isProgressBarShow
-        binding.ivErrorList.isVisible = isImageShow
-        binding.tvMessageUnexpected.isVisible = isMessageShow
-    }
-
-    private fun getLocation(loc: Userloc) {
-        binding.apply {
-            tvKecamatan.text = loc.kec
-            tvKota.text = loc.kab
+    private fun checkMatchTime(currentTime: Calendar) {
+        val currentHour = currentTime[Calendar.HOUR_OF_DAY]
+        val currentSecond = currentTime[Calendar.HOUR_OF_DAY] * 3600 + currentTime[Calendar.SECOND]
+        when {
+            currentHour < 1 -> {
+                timeVariable = "$yesterday 15:00:00"
+                textTime = "Prakiraan pukul: 00.00--00.59"
+            }currentHour < 4 -> {
+                timeVariable = "$yesterday 18:00:00"
+                textTime = "Prakiraan pukul: 01.00--03.59"
+            }currentHour < 7 -> {
+                timeVariable = "$yesterday 21:00:00"
+                textTime = "Prakiraan pukul: 04.00--06.59"
+            }currentHour < 10 -> {
+                timeVariable = "$today 00:00:00"
+                textTime = "Prakiraan pukul: 07.00--09.59"
+            }currentHour < 13 -> {
+                timeVariable = "$today 03:00:00"
+                textTime = "Prakiraan pukul: 10.00--12.59"
+            }currentHour < 16 -> {
+                timeVariable = "$today 06:00:00"
+                textTime = "Prakiraan pukul: 13.00--15.59"
+            }currentHour < 19 -> {
+                timeVariable = "$today 09:00:00"
+                textTime = "Prakiraan pukul: 16.00--18.59"
+            }currentHour < 22 -> {
+                timeVariable = "$today 12:00:00"
+                textTime = "Prakiraan pukul: 19.00--21.59"
+            }currentSecond < 23 * 3600 + 59 -> {
+                timeVariable = "$today 15:00:00"
+                textTime = "Prakiraan pukul: 22.00--23.59"
+            }
         }
     }
+
+    private fun initiateViewModel() {
+        val weatherDB = WeatherDatabase.getInstance(requireContext())
+        val daoWeather = weatherDB.weatherDao()
+        val userlocDB = UserlocDatabase.getInstance(requireContext())
+        val daoUserloc = userlocDB.userlocDao()
+        pref = DataPreference.getInstance(requireContext().dataStore)
+        val repo = AppRepository(daoWeather,daoUserloc,pref)
+        val factory = ViewModelFactory(repo)
+
+        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

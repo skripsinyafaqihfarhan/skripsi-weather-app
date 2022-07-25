@@ -12,17 +12,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repo: AppRepository): ViewModel() {
-    val loginResult: MutableLiveData<LoginResult?> = repo.loginResult
+//    val loginResult: MutableLiveData<LoginResult?> = repo.loginResult
+//
+//    fun getLocation(location: Userloc) {
+//        viewModelScope.launch {
+//            repo.addDataLoc(location)
+//        }
+//    }
 
-    fun getLocation(location: Userloc) {
-        viewModelScope.launch {
-            repo.addDataLoc(location)
-        }
-    }
-
-    fun saveLocation() {
-        viewModelScope.launch {
-            repo.saveLocation()
-        }
-    }
+//    fun saveLocation() {
+//        viewModelScope.launch {
+//            repo.saveLocation()
+//        }
+//    }
 }

@@ -13,35 +13,14 @@ import java.util.*
 
 class HomeViewModel(private val repo: AppRepository) : ViewModel() {
 
-    fun addDataCuaca(data: Weather) {
-        viewModelScope.launch (Dispatchers.IO) {
-            repo.addDataToLocal(data)
-        }
-    }
-
-    fun addAllDataCuaca(data: MutableList<Weather>?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repo.addAllDataToLocal(data)
-        }
-    }
-
-    fun getAllWeatherData(kode: String, provID: String) = repo.getAllDataWeather(kode,provID).asLiveData()
-
-    fun readDataCuaca(time: String) = repo.readData(time).asLiveData()
+    fun readDataCuaca(time: String) = repo.readDataWeather(time).asLiveData()
 
     fun checkDataLoc()= repo.checkDataLoc()
 
-    fun getUserLoc() = repo.getDataLoc().asLiveData()
-//    {
-//        var result = MutableLiveData<Userloc>()
-//        viewModelScope.launch(Dispatchers.IO) {
-//            val data = repo.getUserloc()
-//            result.postValue(data)
-//        }
-//        return  result
-//    }
+    fun getUserloc() = repo.getDataLoc().asLiveData()
 
     fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
         return pref.getThemeSettings().asLiveData()
     }
+
 }

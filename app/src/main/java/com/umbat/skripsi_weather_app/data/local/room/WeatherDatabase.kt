@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
+import com.umbat.skripsi_weather_app.data.room.WeatherDao
 
 @Database(
     entities = [Weather::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class WeatherDatabase: RoomDatabase() {
@@ -27,7 +28,10 @@ abstract class WeatherDatabase: RoomDatabase() {
                     context.applicationContext,
                     WeatherDatabase::class.java,
                     "WeatherDB"
-                ).allowMainThreadQueries().build()
+                )
+                    .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

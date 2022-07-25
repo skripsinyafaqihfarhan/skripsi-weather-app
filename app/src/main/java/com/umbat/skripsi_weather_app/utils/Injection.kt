@@ -12,7 +12,7 @@ import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
 
 
 object Injection {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("token")
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("settings")
     fun provideRepository(context: Context): AppRepository {
         val weatherDB = WeatherDatabase.getInstance(context)
         val daoWeather = weatherDB.weatherDao()

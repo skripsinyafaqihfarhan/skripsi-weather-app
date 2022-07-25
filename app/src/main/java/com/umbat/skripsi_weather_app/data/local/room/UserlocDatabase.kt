@@ -9,7 +9,7 @@ import com.umbat.skripsi_weather_app.data.local.room.UserlocDao
 
 @Database(
     entities = [Userloc::class],
-    version = 3,
+    version = 2,
     exportSchema = false
 )
 abstract class UserlocDatabase: RoomDatabase() {

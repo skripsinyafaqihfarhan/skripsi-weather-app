@@ -11,9 +11,11 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeViewModel(private val repo: AppRepository) : ViewModel() {
+class HomeViewModel(
+    private val repo: AppRepository) : ViewModel() {
 
-    fun readDataCuaca(time: String) = repo.readDataWeather(time).asLiveData()
+    fun readDataCuaca(time: String) = repo
+        .readDataWeather(time).asLiveData()
 
     fun checkDataLoc()= repo.checkDataLoc()
 
@@ -22,5 +24,4 @@ class HomeViewModel(private val repo: AppRepository) : ViewModel() {
     fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
         return pref.getThemeSettings().asLiveData()
     }
-
 }

@@ -86,8 +86,8 @@ class HomeFragment : Fragment() {
                 binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
                 binding.tvWindValue.text = data?.windSp
                 binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
-//                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
-//                binding.weatherIcon.setImageResource(imgResId)
+                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
+                binding.weatherIcon.setImageResource(imgResId)
             }
         }
 

@@ -3,7 +3,6 @@ package com.umbat.skripsi_weather_app.data.remote
 import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import java.io.InputStreamReader
 import java.net.URL
-import java.util.*
 import kotlin.collections.ArrayList
 
 class Scan {

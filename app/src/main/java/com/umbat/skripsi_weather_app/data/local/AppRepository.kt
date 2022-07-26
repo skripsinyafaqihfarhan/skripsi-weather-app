@@ -1,4 +1,4 @@
-package com.umbat.skripsi_weather_app.data
+package com.umbat.skripsi_weather_app.data.local
 
 import androidx.lifecycle.LiveData
 import com.umbat.skripsi_weather_app.data.local.DataPreference
@@ -8,8 +8,7 @@ import com.umbat.skripsi_weather_app.data.local.room.UserlocDao
 import com.umbat.skripsi_weather_app.data.room.WeatherDao
 import kotlinx.coroutines.flow.Flow
 
-class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: UserlocDao,
-                    private val pref: DataPreference) {
+class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: UserlocDao) {
 
     fun checkDataLoc(): Boolean = userlocDao.isExist()
 
@@ -25,9 +24,6 @@ class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: 
 
     fun readDataWeather(time: String): LiveData<Weather> = weatherDao.readData(time)
 
-    suspend fun saveThemeSettings(isDarkModeActive: Boolean) {
-        pref.saveThemeSettings(isDarkModeActive)
-    }
 
     companion object {
         private const val TAG = "WeatherRepository"
@@ -35,11 +31,10 @@ class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: 
         private var instance: AppRepository? = null
         fun getInstance(
             weatherDao: WeatherDao,
-            userlocDao: UserlocDao,
-            pref: DataPreference
+            userlocDao: UserlocDao
         ): AppRepository =
             instance ?: synchronized(this) {
-                instance ?: AppRepository(weatherDao,userlocDao,pref)
+                instance ?: AppRepository(weatherDao,userlocDao)
             }.also { instance = it }
     }
 }

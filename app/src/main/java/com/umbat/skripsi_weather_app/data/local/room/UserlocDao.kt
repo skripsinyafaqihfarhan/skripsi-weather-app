@@ -1,5 +1,6 @@
 package com.umbat.skripsi_weather_app.data.local.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,7 +17,7 @@ interface UserlocDao {
     fun isExist(): Boolean
 
     @Query("SELECT * FROM userloc LIMIT 1")
-    fun getLoc(): Flow<Userloc>
+    fun getLoc(): LiveData<Userloc>
 
     @Query("DELETE FROM userloc")
     fun deleteDataLoc()

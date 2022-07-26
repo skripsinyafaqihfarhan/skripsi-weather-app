@@ -9,7 +9,7 @@ import com.umbat.skripsi_weather_app.model.StateModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class DataPreference private constructor(private val dataStore: DataStore<Preferences>) {
+class DataPreference(private val dataStore: DataStore<Preferences>) {
 
     private val THEME_KEY = booleanPreferencesKey("theme_setting")
     private val KEC_KEY = stringPreferencesKey("kecamatan")

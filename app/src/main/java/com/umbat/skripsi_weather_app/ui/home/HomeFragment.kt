@@ -25,6 +25,7 @@ import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
+import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
 import com.umbat.skripsi_weather_app.utils.DataDefine
 import java.text.SimpleDateFormat
@@ -85,11 +86,11 @@ class HomeFragment : Fragment() {
                 Log.d("tes", "data to be shown: $data")
                 binding.tvTemperature.text = data?.tempNow
                 binding.tvHumidityValue.text = data?.rhNow
-                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
+//                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
                 binding.tvWindValue.text = data?.windSp
-                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
-                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
-                binding.weatherIcon.setImageResource(imgResId)
+//                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
+//                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
+//                binding.weatherIcon.setImageResource(imgResId)
             }
         }
 
@@ -109,7 +110,7 @@ class HomeFragment : Fragment() {
          */
         val addLocation: Button = binding.btnAddLocation
         addLocation.setOnClickListener{
-            val intent = Intent(requireContext(), SearchAct::class.java)
+            val intent = Intent(requireContext(), SearchActivity::class.java)
             findNavController()
             startActivity(intent)
         }

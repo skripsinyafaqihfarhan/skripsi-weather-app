@@ -31,12 +31,8 @@ import com.umbat.skripsi_weather_app.data.local.entity.Weather
 import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
-import com.umbat.skripsi_weather_app.model.StateModel
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.IOException
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -74,7 +70,7 @@ class SearchActivity : AppCompatActivity() {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("geodata")
         binding.rvLocationList.setHasFixedSize(true)
-        binding.rvLocationList.setLayoutManager(LinearLayoutManager(this))
+        binding.rvLocationList.layoutManager = LinearLayoutManager(this)
 
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -84,7 +80,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val searchText = binding.searchBar.getText().toString().trim()
+                val searchText = binding.searchBar.text.toString().trim()
                 loadFirebaseData(searchText)
             }
         })
@@ -155,8 +151,9 @@ class SearchActivity : AppCompatActivity() {
                 val kodeKec: String = dataLoc.kec
                 val provin: String = dataLoc.provID
                 val scan = Scan()
+                val scope = CoroutineScope(Dispatchers.IO)
                 try {
-                    GlobalScope.launch {
+                    scope.launch {
                         val defer = async(Dispatchers.IO) {
                             scan.getContent(kodeKec, provin)
                         }
@@ -167,12 +164,12 @@ class SearchActivity : AppCompatActivity() {
                             searchViewModel.addDataWeather(
                                 Weather(
                                     0,
-                                    weatherData.get(i).dateTime,
-                                    weatherData.get(i).rhNow,
-                                    weatherData.get(i).tempNow,
-                                    weatherData.get(i).weatherCond,
-                                    weatherData.get(i).windDr,
-                                    weatherData.get(i).windSp,
+                                    weatherData[i].dateTime,
+                                    weatherData[i].rhNow,
+                                    weatherData[i].tempNow,
+                                    weatherData[i].weatherCond,
+                                    weatherData[i].windDr,
+                                    weatherData[i].windSp,
                                 )
                             )
                         }

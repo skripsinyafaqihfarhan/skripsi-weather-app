@@ -1,6 +1,5 @@
 package com.umbat.skripsi_weather_app.ui.search
 
-
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Intent

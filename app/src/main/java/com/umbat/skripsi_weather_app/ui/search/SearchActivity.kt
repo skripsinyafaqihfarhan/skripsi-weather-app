@@ -1,5 +1,7 @@
 package com.umbat.skripsi_weather_app.ui.search
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -21,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.FirebaseApp
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.umbat.skripsi_weather_app.MainActivity
@@ -33,11 +36,13 @@ import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
 import com.umbat.skripsi_weather_app.model.StateModel
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
+import com.umbat.skripsi_weather_app.utils.ScheduleReceiver
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.util.*
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -47,6 +52,9 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private lateinit var adapter: SearchAdapter
     private lateinit var viewModelFactory: ViewModelFactory
+    private lateinit var calendar: Calendar
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
     private val searchViewModel: SearchViewModel by viewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +67,7 @@ class SearchActivity : AppCompatActivity() {
         setupViewModel()
 
         val preferences = DataPreference.getInstance(dataStore)
+        val progressBar = binding.progressBar
 
 //        searchViewModel.getLocation().observe(this) { loc ->
 //            if (loc.isSelected) moveToMainActivity()
@@ -88,6 +97,35 @@ class SearchActivity : AppCompatActivity() {
                 loadFirebaseData(searchText)
             }
         })
+    }
+
+    private fun dataSchedular() {
+        cancelSchedular()
+
+        calendar = Calendar.getInstance()
+        calendar[Calendar.HOUR_OF_DAY] = 23
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MILLISECOND] = 0
+
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ScheduleReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(this,0,intent,0)
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,pendingIntent
+        )
+    }
+
+    private fun cancelSchedular() {
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ScheduleReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(this,0,intent,0)
+
+        alarmManager.cancel(pendingIntent)
     }
 
     fun removeOldData() {
@@ -124,20 +162,26 @@ class SearchActivity : AppCompatActivity() {
                         model: Userloc
                     ) {
                         holder.bind(model){ data: Userloc ->
+                            val progressBar = binding.progressBar
+
                             removeOldData()
                             removeWeatherDB()
 
                             searchViewModel.getLocation(data)
+
                             insertWeatherData()
+                            dataSchedular()
 
                             Toast.makeText(this@SearchActivity, "${data.kec} dipilih", Toast.LENGTH_SHORT).show()
-                            val timeout = 1000L
+                            val timeout = 3000L
                             // TODO: This wont work since intent to fragment is prohibited. Intent must go to an activity.
 //                            Intent(this@SearchActivity, MainActivity::class.java).also{
 ////                                it.putExtra(HomeFragment.EXTRA_KECAMATAN, data.kec)
 ////                                it.putExtra(HomeFragment.EXTRA_KAB, data.kab)
 //                                startActivity(it)
 //                            }
+                            progressBar.visibility = View.VISIBLE
+                            progressBar.visibility = View.GONE
                             Handler(mainLooper).postDelayed({
                                 moveToMainActivity(); return@postDelayed
                             }, timeout)
@@ -152,7 +196,7 @@ class SearchActivity : AppCompatActivity() {
     fun insertWeatherData() {
         searchViewModel.getDataloc().observe(this, Observer { dataLoc ->
             if (dataLoc != null) {
-                val kodeKec: String = dataLoc.kec
+                val kodeKec: String = dataLoc.kode
                 val provin: String = dataLoc.provID
                 val scan = Scan()
                 try {

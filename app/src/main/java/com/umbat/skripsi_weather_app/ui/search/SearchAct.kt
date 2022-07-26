@@ -115,7 +115,7 @@ class SearchAct : AppCompatActivity() {
     fun insertWeatherData() {
         searchViewModel.getDataloc().observe(this, Observer { dataLoc ->
             if (dataLoc != null) {
-                val kodeKec: String = dataLoc.kodeKec
+                val kodeKec: String = dataLoc.kode
                 val provin: String = dataLoc.provID
                 val scan = Scan()
                 try {

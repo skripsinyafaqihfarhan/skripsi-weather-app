@@ -25,6 +25,7 @@ import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
 import com.umbat.skripsi_weather_app.ui.search.SearchAct
+import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
 import com.umbat.skripsi_weather_app.utils.DataDefine
 import java.text.SimpleDateFormat
@@ -109,7 +110,7 @@ class HomeFragment : Fragment() {
          */
         val addLocation: Button = binding.btnAddLocation
         addLocation.setOnClickListener{
-            val intent = Intent(requireContext(), SearchAct::class.java)
+            val intent = Intent(requireContext(), SearchActivity::class.java)
             findNavController()
             startActivity(intent)
         }

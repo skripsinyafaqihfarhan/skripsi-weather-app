@@ -8,15 +8,15 @@ import androidx.room.PrimaryKey
 data class Userloc (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")
-    val id: Int,
+    val id: Int = 0,
     @ColumnInfo(name = "Kode")
-    val kodeKec: String,
+    val kode: String = "",
     @ColumnInfo(name = "ProvID")
-    val provID: String,
+    val provID: String = "",
     @ColumnInfo(name = "Kecamatan")
-    val kec: String,
+    val kec: String = "",
     @ColumnInfo(name = "Kota/Kab")
-    val kab: String,
+    val kab: String = "",
     @ColumnInfo(name = "Provinsi")
-    val prov: String
+    val prov: String = ""
 )

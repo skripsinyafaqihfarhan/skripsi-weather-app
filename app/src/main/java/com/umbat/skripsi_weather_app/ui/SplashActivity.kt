@@ -65,7 +65,7 @@ class SplashActivity : Activity(){
     }
 
     private fun moveToSearchActivity() {
-        val intent = Intent(this@SplashActivity, SearchAct::class.java)
+        val intent = Intent(this@SplashActivity, SearchActivity::class.java)
         intent.flags =Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
         finish()

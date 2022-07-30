@@ -9,7 +9,7 @@ import com.umbat.skripsi_weather_app.data.room.WeatherDao
 
 @Database(
     entities = [Weather::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class WeatherDatabase: RoomDatabase() {

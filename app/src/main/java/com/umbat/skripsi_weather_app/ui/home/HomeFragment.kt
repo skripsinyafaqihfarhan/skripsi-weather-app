@@ -86,11 +86,11 @@ class HomeFragment : Fragment() {
                 Log.d("tes", "data to be shown: $data")
                 binding.tvTemperature.text = data?.tempNow
                 binding.tvHumidityValue.text = data?.rhNow
-//                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
+                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
                 binding.tvWindValue.text = data?.windSp
-//                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
-//                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
-//                binding.weatherIcon.setImageResource(imgResId)
+                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
+                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
+                binding.weatherIcon.setImageResource(imgResId)
             }
         }
 

@@ -10,15 +10,12 @@ import kotlinx.coroutines.flow.asFlow
 class FakeWeatherDao: WeatherDao {
     private var weatherData = MutableLiveData<Weather>()
 
-    override suspend fun addDataToLocal(data: Weather) {
-        weatherData.value = data
-    }
+    override suspend fun addDataToLocal(data: Weather) { weatherData.value = data }
 
-    override fun deleteWeatherData() {
-        weatherData.value = null
-    }
+    override fun deleteWeatherData() { weatherData.value = null }
 
-    override fun readData(time: String): LiveData<Weather> {
-        return weatherData
-    }
+    override fun isExist(): Boolean { if (weatherData.value?.id == null) { return false }
+        return true}
+
+    override fun readData(time: String): LiveData<Weather> { return weatherData }
 }

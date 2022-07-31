@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
@@ -36,11 +38,9 @@ import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
 import com.umbat.skripsi_weather_app.model.StateModel
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
+import com.umbat.skripsi_weather_app.utils.NotifReceiver
 import com.umbat.skripsi_weather_app.utils.ScheduleReceiver
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.io.IOException
 import java.util.*
 
@@ -193,6 +193,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    @DelicateCoroutinesApi
     fun insertWeatherData() {
         searchViewModel.getDataloc().observe(this, Observer { dataLoc ->
             if (dataLoc != null) {

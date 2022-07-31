@@ -1,6 +1,8 @@
 package com.umbat.skripsi_weather_app.ui.home
 
 import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -18,9 +21,12 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.gson.Gson
 import com.umbat.skripsi_weather_app.data.AppRepository
 import com.umbat.skripsi_weather_app.data.local.DataPreference
 import com.umbat.skripsi_weather_app.data.local.room.WeatherDatabase
+import com.umbat.skripsi_weather_app.data.notification.PushNotification
+import com.umbat.skripsi_weather_app.data.notification.RetrofitInstance
 import com.umbat.skripsi_weather_app.data.room.UserlocDatabase
 import com.umbat.skripsi_weather_app.databinding.FragmentHomeBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
@@ -28,6 +34,10 @@ import com.umbat.skripsi_weather_app.ui.search.SearchAct
 import com.umbat.skripsi_weather_app.ui.search.SearchActivity
 import com.umbat.skripsi_weather_app.ui.weekweather.WeekWeatherActivity
 import com.umbat.skripsi_weather_app.utils.DataDefine
+import com.umbat.skripsi_weather_app.utils.ScheduleReceiver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,6 +57,10 @@ class HomeFragment : Fragment() {
     private lateinit var timeVariable: String
     private lateinit var textTime: String
     private lateinit var dayNow: String
+    val TAG ="MainActivity"
+    private lateinit var calendar: Calendar
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
@@ -88,7 +102,7 @@ class HomeFragment : Fragment() {
                 binding.tvHumidityValue.text = data?.rhNow
                 binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
                 binding.tvWindValue.text = data?.windSp
-                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
+                binding.tvCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
                 val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
                 binding.weatherIcon.setImageResource(imgResId)
             }
@@ -97,13 +111,13 @@ class HomeFragment : Fragment() {
         /**
          * Intent to 7 Days Condition Activity
          */
-        val next7Days: TextView = binding.next7Days
-        next7Days.setOnClickListener{
-            val intent = Intent(requireContext(), WeekWeatherActivity::class.java)
-            startActivity(intent)
-
-            next7Days.movementMethod = LinkMovementMethod.getInstance()
-        }
+//        val next7Days: TextView = binding.next7Days
+//        next7Days.setOnClickListener{
+//            val intent = Intent(requireContext(), WeekWeatherActivity::class.java)
+//            startActivity(intent)
+//
+//            next7Days.movementMethod = LinkMovementMethod.getInstance()
+//        }
 
         /**
          * Intent to add location
@@ -126,6 +140,19 @@ class HomeFragment : Fragment() {
             }
         }
         return root
+    }
+
+    private fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+            if (response.isSuccessful) {
+                Log.d(TAG, "Response: ${Gson().toJson(response)}")
+            } else {
+                Log.e(TAG, response.errorBody().toString(), )
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, e.printStackTrace().toString(), )
+        }
     }
 
     private fun checkMatchTime(currentTime: Calendar) {

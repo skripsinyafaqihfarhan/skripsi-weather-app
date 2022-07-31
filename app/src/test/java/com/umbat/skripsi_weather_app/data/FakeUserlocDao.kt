@@ -13,22 +13,12 @@ import kotlinx.coroutines.flow.flowOf
 class FakeUserlocDao: UserlocDao {
     private var userlocData = MutableLiveData<Userloc>()
 
-    override suspend fun addDataLoc(data: Userloc) {
-        userlocData.value = data
-    }
+    override suspend fun addDataLoc(data: Userloc) { userlocData.value = data }
 
-    override fun isExist(): Boolean {
-        if (userlocData.value?.id == null) {
-            return false
-        }
-        return true
-    }
+    override fun isExist(): Boolean { if (userlocData.value?.id == null) { return false }
+        return true}
 
-    override fun getLoc(): LiveData<Userloc> {
-        return userlocData
-    }
+    override fun getLoc(): LiveData<Userloc> { return userlocData }
 
-    override fun deleteDataLoc() {
-        userlocData.value = null
-    }
+    override fun deleteDataLoc() { userlocData.value = null }
 }

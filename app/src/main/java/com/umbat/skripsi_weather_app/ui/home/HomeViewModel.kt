@@ -24,4 +24,10 @@ class HomeViewModel(
     fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
         return pref.getThemeSettings().asLiveData()
     }
+
+    fun addDataWeather(weather: Weather) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.addDataWeather(weather)
+        }
+    }
 }

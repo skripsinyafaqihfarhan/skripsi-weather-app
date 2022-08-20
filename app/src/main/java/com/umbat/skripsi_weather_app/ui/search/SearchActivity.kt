@@ -70,7 +70,7 @@ class SearchActivity : AppCompatActivity() {
 
         mDatabase = FirebaseDatabase.getInstance().getReference("geodata")
         binding.rvLocationList.setHasFixedSize(true)
-        binding.rvLocationList.layoutManager = LinearLayoutManager(this)
+        binding.rvLocationList.setLayoutManager(LinearLayoutManager(this))
 
         binding.searchBar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -151,9 +151,9 @@ class SearchActivity : AppCompatActivity() {
                 val kodeKec: String = dataLoc.kec
                 val provin: String = dataLoc.provID
                 val scan = Scan()
-                val scope = CoroutineScope(Dispatchers.IO)
+//                val scope = CoroutineScope(Dispatchers.IO)
                 try {
-                    scope.launch {
+                    GlobalScope.launch {
                         val defer = async(Dispatchers.IO) {
                             scan.getContent(kodeKec, provin)
                         }

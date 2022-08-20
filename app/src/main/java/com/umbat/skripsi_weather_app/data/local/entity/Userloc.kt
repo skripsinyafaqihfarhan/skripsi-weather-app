@@ -10,7 +10,7 @@ data class Userloc (
     @ColumnInfo(name = "ID")
     val id: Int = 0,
     @ColumnInfo(name = "Kode")
-    val kodeKec: String = "",
+    val kode: String = "",
     @ColumnInfo(name = "ProvID")
     val provID: String = "",
     @ColumnInfo(name = "Kecamatan")

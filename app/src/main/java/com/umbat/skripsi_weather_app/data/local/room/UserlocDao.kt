@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface UserlocDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addDataLoc(data: Userloc)
+    fun addDataLoc(data: Userloc)
 
     @Query("SELECT EXISTS(SELECT * FROM userloc)")
     fun isExist(): Boolean

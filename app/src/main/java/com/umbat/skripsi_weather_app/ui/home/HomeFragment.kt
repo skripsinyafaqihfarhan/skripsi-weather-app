@@ -91,15 +91,20 @@ class HomeFragment : Fragment() {
 
         homeViewModel.readDataCuaca(timeVariable).observe(viewLifecycleOwner) { data ->
             binding.apply {
-                val define = DataDefine()
-                Log.d("tes", "data to be shown: $data")
-                binding.tvTemperature.text = data?.tempNow
-                binding.tvHumidityValue.text = data?.rhNow
-                binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
-                binding.tvWindValue.text = data?.windSp
-                binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
-                val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
-                binding.weatherIcon.setImageResource(imgResId)
+                if (data != null) {
+                    showLoading(false)
+                    val define = DataDefine()
+                    Log.d("tes", "data to be shown: $data")
+                    binding.tvTemperature.text = data?.tempNow
+                    binding.tvHumidityValue.text = data?.rhNow
+                    binding.tvDirectionValue.text = define.arahAngin(data?.windDr.toString())
+                    binding.tvWindValue.text = data?.windSp
+                    binding.todayCondition.text = define.kondisiCuaca(data?.weatherCond.toString())
+                    val imgResId = define.gambarCuaca(data?.weatherCond.toString(),calendarNow)
+                    binding.weatherIcon.setImageResource(imgResId)
+                } else {
+                    showLoading(true)
+                }
             }
         }
 
@@ -171,6 +176,14 @@ class HomeFragment : Fragment() {
                     e.printStackTrace()
                 }
             }
+        }
+    }
+
+    private fun showLoading(state: Boolean){
+        if (state) {
+            binding.progressBarHome.visibility = View.VISIBLE
+        } else {
+            binding.progressBarHome.visibility = View.GONE
         }
     }
 

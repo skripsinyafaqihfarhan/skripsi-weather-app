@@ -10,6 +10,8 @@ import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repo: AppRepository): ViewModel() {
 
+    val showLoading get() = repo.showLoading
+
     fun getLocation(location: Userloc) {
         viewModelScope.launch (Dispatchers.IO) {
             repo.addDataloc(location)

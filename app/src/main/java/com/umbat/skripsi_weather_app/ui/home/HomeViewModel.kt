@@ -14,6 +14,8 @@ import java.util.*
 class HomeViewModel(
     private val repo: AppRepository) : ViewModel() {
 
+    val showLoading get() = repo.showLoading
+
     fun readDataCuaca(time: String) = repo
         .readDataWeather(time).asLiveData()
 

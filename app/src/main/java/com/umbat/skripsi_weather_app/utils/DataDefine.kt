@@ -65,9 +65,9 @@ class DataDefine {
         else if (x == "0" && currentTime > 6 && currentTime < 18) {return R.drawable.cerah_siang_0}
         else if (x == "1" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawan_siang_1_2}
         else if (x == "2" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawan_siang_1_2}
-        else if (x == "0" && currentTime < 6 || currentTime > 18) {return R.drawable.cerah_malam_0}
-        else if (x == "1" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawan_malam_1_2}
-        else if (x == "2" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawan_malam_1_2}
+        else if (x == "0" && (currentTime < 6 || currentTime > 18)) {return R.drawable.cerah_malam_0}
+        else if (x == "1" && (currentTime < 6 || currentTime > 18)) {return R.drawable.cerahberawan_malam_1_2}
+        else if (x == "2" && (currentTime < 6 || currentTime > 18)) {return R.drawable.cerahberawan_malam_1_2}
         else {return R.drawable.cerah_siang_0}
     }
 }

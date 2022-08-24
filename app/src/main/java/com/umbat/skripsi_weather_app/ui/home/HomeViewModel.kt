@@ -17,11 +17,11 @@ class HomeViewModel(
     val showLoading get() = repo.showLoading
 
     fun readDataCuaca(time: String) = repo
-        .readDataWeather(time).asLiveData()
+        .readDataWeather(time)
 
     fun checkDataLoc()= repo.checkDataLoc()
 
-    fun getUserloc() = repo.getDataLoc().asLiveData()
+    fun getUserloc() = repo.getDataLoc()
 
     fun getThemeSettings(pref: DataPreference): LiveData<Boolean> {
         return pref.getThemeSettings().asLiveData()

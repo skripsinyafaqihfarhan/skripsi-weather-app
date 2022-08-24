@@ -24,7 +24,7 @@ class SearchViewModel(private val repo: AppRepository): ViewModel() {
         }
     }
 
-    fun getDataloc() = repo.getDataLoc().asLiveData()
+    fun getDataloc() = repo.getDataLoc()
 
     fun deleteDataWeather() {
         viewModelScope.launch(Dispatchers.IO) {

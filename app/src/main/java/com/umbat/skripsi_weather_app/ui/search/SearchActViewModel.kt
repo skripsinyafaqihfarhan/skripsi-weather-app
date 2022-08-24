@@ -19,7 +19,7 @@ class SearchActViewModel(private val repo: AppRepository): ViewModel() {
         viewModelScope.launch (Dispatchers.IO) { repo.deleteDataLoc() }
     }
 
-    fun getDataloc() = repo.getDataLoc().asLiveData()
+    fun getDataloc() = repo.getDataLoc()
 
     fun deleteDataWeather() {
         viewModelScope.launch(Dispatchers.IO) { repo.deleteDataWeather() }

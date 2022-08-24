@@ -23,6 +23,7 @@ class DataDefine {
             "97" -> {"Hujan Petir"}
             else -> {
                 throw IllegalArgumentException("Kondisi cuaca tak terdefinisi")
+                return "Kondisi cuaca tak terdefinisi"
             }
         }
     }
@@ -46,6 +47,7 @@ class DataDefine {
             "NNW" -> {"Utara-Barat Laut"}
             else -> {
                 throw IllegalArgumentException("Kondisi cuaca tak terdefinisi")
+                return "Kondisi cuaca tak terdefinisi"
             }
         }
     }

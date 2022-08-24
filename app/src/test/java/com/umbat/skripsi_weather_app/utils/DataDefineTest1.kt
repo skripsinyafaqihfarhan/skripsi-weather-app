@@ -75,9 +75,8 @@ class DataDefineTest1 {
         val expected = "Hujan Petir"
         val actual = dataDefine.kondisiCuaca("97")
         assertEquals(expected, actual) }
-//    @Test fun `kondisiCuaca jalur 15`() = runTest {
-//        val e: IllegalArgumentException
-//        val expected = e
-//        val actual = dataDefine.kondisiCuaca("as")
-//        assertEquals(expected, actual) }
+    @Test fun `kondisiCuaca jalur 15`() = runTest {
+        val expected = "Kondisi cuaca tak terdefinisi"
+        val actual = dataDefine.kondisiCuaca("as")
+        assertEquals(expected, actual) }
 }

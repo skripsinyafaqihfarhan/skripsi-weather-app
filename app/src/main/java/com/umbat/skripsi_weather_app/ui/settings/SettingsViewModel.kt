@@ -19,4 +19,17 @@ class SettingsViewModel (private val repo: AppRepository) : ViewModel() {
             repo.saveThemeSettings(isDarkModeActive)
         }
     }
+
+    fun getNotifSettings(pref: DataPreference): LiveData<Boolean> {
+        return pref.getNotifSettings().asLiveData()
+    }
+
+    fun saveNotifSettings(isDarkModeActive: Boolean) {
+        viewModelScope.launch {
+            repo.saveNotifSettings(isDarkModeActive)
+        }
+    }
+
+    fun readDataCuaca(time: String) = repo
+        .readDataWeather(time).asLiveData()
 }

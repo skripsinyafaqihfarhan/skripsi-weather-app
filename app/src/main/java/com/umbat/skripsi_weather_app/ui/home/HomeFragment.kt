@@ -144,7 +144,6 @@ class HomeFragment : Fragment() {
 
     private fun getWeatherData() {
         homeViewModel.getUserloc().observe(viewLifecycleOwner) { data ->
-            println(data)
             if (data != null) {
                 val kodeKec: String = data.kode
                 val prov: String = data.provID

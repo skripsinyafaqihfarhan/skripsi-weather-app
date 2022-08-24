@@ -49,6 +49,10 @@ class AppRepository(private val weatherDao: WeatherDao, private val userlocDao: 
         pref.saveThemeSettings(isDarkModeActive)
     }
 
+    suspend fun saveNotifSettings(x: Boolean) {
+        pref.saveNotifSettings(x)
+    }
+
     companion object {
         private const val TAG = "WeatherRepository"
         @Volatile

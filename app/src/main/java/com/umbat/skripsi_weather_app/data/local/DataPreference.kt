@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.map
 class DataPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
     private val THEME_KEY = booleanPreferencesKey("theme_setting")
+    private val NOTIF_KEY = booleanPreferencesKey("notif_setting")
     private val KEC_KEY = stringPreferencesKey("kecamatan")
     private val KAB_KEY = stringPreferencesKey("kabupaten")
     private val STATE_KEY = booleanPreferencesKey("state")
@@ -25,6 +26,18 @@ class DataPreference private constructor(private val dataStore: DataStore<Prefer
     suspend fun saveThemeSettings(isDarkModeActive: Boolean) {
         dataStore.edit { preferences ->
             preferences[THEME_KEY] = isDarkModeActive
+        }
+    }
+
+    fun getNotifSettings(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[NOTIF_KEY] ?: false
+        }
+    }
+
+    suspend fun saveNotifSettings(x: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[NOTIF_KEY] = x
         }
     }
 

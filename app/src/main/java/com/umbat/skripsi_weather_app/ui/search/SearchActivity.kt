@@ -1,5 +1,7 @@
 package com.umbat.skripsi_weather_app.ui.search
 
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -32,8 +34,10 @@ import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
+import com.umbat.skripsi_weather_app.utils.ScheduleReceiver
 import kotlinx.coroutines.*
 import java.io.IOException
+import java.util.*
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -44,6 +48,9 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var adapter: SearchAdapter
     private lateinit var viewModelFactory: ViewModelFactory
     private val searchViewModel: SearchViewModel by viewModels { viewModelFactory }
+    private lateinit var calendar: Calendar
+    private lateinit var alarmManager: AlarmManager
+    private lateinit var pendingIntent: PendingIntent
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +101,35 @@ class SearchActivity : AppCompatActivity() {
         searchViewModel.deleteDataWeather()
     }
 
+    private fun dataSchedular() {
+        cancelSchedular()
+
+        calendar = Calendar.getInstance()
+        calendar[Calendar.HOUR_OF_DAY] = 23
+        calendar[Calendar.MINUTE] = 0
+        calendar[Calendar.SECOND] = 0
+        calendar[Calendar.MILLISECOND] = 0
+
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ScheduleReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(this,0,intent,0)
+
+        alarmManager.setRepeating(
+            AlarmManager.RTC_WAKEUP,calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,pendingIntent
+        )
+    }
+
+    private fun cancelSchedular() {
+        alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+        val intent = Intent(this, ScheduleReceiver::class.java)
+
+        pendingIntent = PendingIntent.getBroadcast(this,0,intent,0)
+
+        alarmManager.cancel(pendingIntent)
+    }
+
     private fun loadFirebaseData(searchText: String) {
         if (searchText.isEmpty()) {
             Toast.makeText(this, "Masukkan lokasi", Toast.LENGTH_SHORT).show()
@@ -124,7 +160,7 @@ class SearchActivity : AppCompatActivity() {
                             removeWeatherDB()
 
                             searchViewModel.getLocation(data)
-                            insertWeatherData()
+                            dataSchedular()
 
                             Toast.makeText(this@SearchActivity, "${data.kec} dipilih", Toast.LENGTH_SHORT).show()
                             val timeout = 1000L
@@ -148,7 +184,7 @@ class SearchActivity : AppCompatActivity() {
     fun insertWeatherData() {
         searchViewModel.getDataloc().observe(this, Observer { dataLoc ->
             if (dataLoc != null) {
-                val kodeKec: String = dataLoc.kec
+                val kodeKec: String = dataLoc.kode
                 val provin: String = dataLoc.provID
                 val scan = Scan()
 //                val scope = CoroutineScope(Dispatchers.IO)

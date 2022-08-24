@@ -181,7 +181,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     fun insertWeatherData() {
-        searchViewModel.getDataloc().observe(this, Observer { dataLoc ->
+        searchViewModel.getDataloc().observe(this, Observer { dataLoc: Userloc ->
             if (dataLoc != null) {
                 val kodeKec: String = dataLoc.kode
                 val provin: String = dataLoc.provID

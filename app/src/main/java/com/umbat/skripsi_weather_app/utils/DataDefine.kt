@@ -64,12 +64,12 @@ class DataDefine {
         else if (x == "80") {return R.drawable.hujansedang_61_hujanlokal_80}
         else if (x == "95") {return R.drawable.hujanpetir_95_97}
         else if (x == "97") {return R.drawable.hujanpetir_95_97}
-        else if (x == "0" && currentTime > 6 && currentTime < 18) {return R.drawable.cerah_siang_0}
-        else if (x == "1" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawan_siang_1_2}
-        else if (x == "2" && currentTime > 6 && currentTime < 18) {return R.drawable.cerahberawan_siang_1_2}
-        else if (x == "0" && currentTime < 6 || currentTime > 18) {return R.drawable.cerah_malam_0}
-        else if (x == "1" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawan_malam_1_2}
-        else if (x == "2" && currentTime < 6 || currentTime > 18) {return R.drawable.cerahberawan_malam_1_2}
+        else if (x == "0" && (currentTime > 6 && currentTime < 18)) {return R.drawable.cerah_siang_0}
+        else if (x == "1" && (currentTime > 6 && currentTime < 18)) {return R.drawable.cerahberawan_siang_1_2}
+        else if (x == "2" && (currentTime > 6 && currentTime < 18)) {return R.drawable.cerahberawan_siang_1_2}
+        else if (x == "0" && (currentTime < 6 || currentTime > 18)) {return R.drawable.cerah_malam_0}
+        else if (x == "1" && (currentTime < 6 || currentTime > 18)) {return R.drawable.cerahberawan_malam_1_2}
+        else if (x == "2" && (currentTime < 6 || currentTime > 18)) {return R.drawable.cerahberawan_malam_1_2}
         else {return R.drawable.cerah_siang_0}
     }
 }

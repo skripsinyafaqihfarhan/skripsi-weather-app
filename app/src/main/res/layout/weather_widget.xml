@@ -2,6 +2,7 @@
     style="@style/Widget.Skripsiweatherapp.AppWidget.Container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:theme="@style/Theme.Skripsiweatherapp.AppWidgetContainer">
 
     <LinearLayout
@@ -24,8 +25,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:fontFamily="@font/roboto_condensed_light"
                 android:text="Sunny"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -35,14 +37,36 @@
                 android:gravity="center">
 
                 <TextView
-                    android:id="@+id/appwidget_text"
+                    android:id="@+id/tv_temperature_widget"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@font/roboto_condensed_light"
                     android:text="34"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="40sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_temperature_degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/roboto_condensed_light"
+                    android:text="O"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tv_temperature_unit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-4dp"
+                    android:fontFamily="@font/roboto_condensed_light"
+                    android:textColor="@color/white"
+                    android:text="C"
+                    android:textSize="28sp" />
 
             </LinearLayout>
 
@@ -60,8 +84,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:fontFamily="@font/roboto_condensed_light"
                 android:text="12:18"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -75,8 +100,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@font/roboto_condensed_light"
                     android:text="Sun, January 9"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
@@ -92,15 +118,17 @@
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:gravity="center"
-                    android:src="@drawable/ic_baseline_location_on_24"/>
+                    android:textColor="@color/white"
+                    android:src="@drawable/ic_baseline_location_on_24_white"/>
 
                 <TextView
-                    android:id="@+id/tv_location"
+                    android:id="@+id/tv_location_widget"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:fontFamily="@font/roboto_condensed_light"
                     android:text="Pondok Aren"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="15sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -114,11 +142,12 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/iv_weather"
+                android:id="@+id/iv_weather_widget"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:gravity="center"
-                android:src="@drawable/ic_baseline_wb_sunny_24"/>
+                android:textColor="@color/white"
+                android:src="@drawable/ic_baseline_wb_sunny_24_white"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,11 +155,12 @@
                 android:gravity="end">
 
                 <ImageButton
+                    android:id="@+id/btn_update"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
+                    android:textColor="@color/white"
                     android:src="@drawable/update"/>
-
 
             </LinearLayout>
         </LinearLayout>

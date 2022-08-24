@@ -22,7 +22,7 @@
     <string name="provinsi">Provinsi</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="appwidget_text">CONTOH</string>
+    <string name="appwidget_text">X</string>
     <string name="add_widget">Tambah widget</string>
     <string name="app_widget_description">Ini adalah deskripsi app widget</string>
     <string name="search_hint">Cari Lokasi Di Sini</string>
@@ -33,4 +33,6 @@
     <string name="preference">Preferensi</string>
     <string name="dark_mode">Mode Gelap</string>
     <string name="choose_language">Pilih Bahasa</string>
+
+    <string name="X">X</string>
 </resources>

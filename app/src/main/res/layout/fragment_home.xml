@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto_condensed_light"
+        android:fontFamily="@font/roboto_condensed_regular"
         android:text="@string/kecamatan"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,40 +23,31 @@
         android:id="@+id/tv_kota"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto_condensed_light"
+        android:fontFamily="@font/roboto_condensed_regular"
         android:text="@string/kota_kabupaten"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="@+id/tv_kecamatan"
         app:layout_constraintTop_toBottomOf="@+id/tv_kecamatan" />
 
-    <LinearLayout
-        android:id="@+id/tv_daydatetime"
+    <TextView
+        android:id="@+id/tv_daydate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/day_date"
+        android:fontFamily="@font/roboto_condensed_light"
+        android:textSize="22sp"
         app:layout_constraintStart_toStartOf="@+id/tv_kota"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kota">
+        app:layout_constraintTop_toBottomOf="@+id/tv_kota"/>
 
-        <TextView
-            android:id="@+id/tv_daydate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/day_date"
-            android:fontFamily="@font/roboto_condensed_regular"
-            android:textSize="18sp"
-             />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/time"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto_condensed_regular"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tv_daydate"
-            app:layout_constraintTop_toBottomOf="@+id/tv_kota" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_condensed_light"
+        android:text="@string/time"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_daydate"
+        app:layout_constraintTop_toBottomOf="@+id/tv_daydate" />
 
     <Button
         android:id="@+id/btn_add_location"
@@ -66,16 +57,16 @@
         android:text="Set Location"
         android:textSize="8sp"
         app:icon="@drawable/ic_baseline_add_24"
-        app:layout_constraintStart_toStartOf="@+id/tv_daydatetime"
-        app:layout_constraintTop_toBottomOf="@+id/tv_daydatetime" />
+        app:layout_constraintStart_toStartOf="@+id/tv_time"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
 
     <TextView
-        android:id="@+id/today"
+        android:id="@+id/today_condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/overpass"
-        android:text="@string/today"
+        android:text="Weather"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,18 +74,19 @@
 
     <ImageView
         android:id="@+id/weather_icon"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="170dp"
+        android:layout_height="170dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/today"
+        app:layout_constraintTop_toBottomOf="@id/today_condition"
         tools:src="@tools:sample/avatars"/>
 
     <LinearLayout
         android:id="@+id/temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@id/weather_icon"
         app:layout_constraintStart_toStartOf="@id/weather_icon"
         app:layout_constraintTop_toBottomOf="@id/weather_icon">
@@ -104,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="32"
+            android:text="X"
             android:textSize="32sp"
             app:layout_constraintStart_toStartOf="@+id/weather_icon"
             app:layout_constraintTop_toBottomOf="@id/weather_icon" />
@@ -138,6 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="48dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@id/weather_icon"
         app:layout_constraintStart_toStartOf="@id/weather_icon"
         app:layout_constraintTop_toBottomOf="@id/temperature">
@@ -161,7 +154,7 @@
             <TextView
                 android:id="@+id/tv_wind_value"
                 style="@style/Condition.Value"
-                android:text="11" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/tv_wind_unit"
@@ -188,7 +181,7 @@
             <TextView
                 android:id="@+id/tv_direction_value"
                 style="@style/Condition.Value"
-                android:text="South" />
+                android:text="X" />
         </TableRow>
 
         <TableRow
@@ -215,7 +208,7 @@
                 android:id="@+id/tv_humidity_value"
                 style="@style/Condition"
                 android:gravity="end"
-                android:text="20" />
+                android:text="X" />
 
             <TextView
                 android:id="@+id/tv_humidity_unit"
@@ -225,35 +218,24 @@
         </TableRow>
     </TableLayout>
 
-    <TextView
-        android:id="@+id/today_condition"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/today"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_kecamatan"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+<!--    <TextView-->
+<!--        android:id="@+id/today"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:text="@string/today"-->
+<!--        android:textSize="16sp"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/tv_kecamatan"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />-->
 
-    <TextView
-        android:id="@+id/next_7_days"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:text="Next 7 Days >"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_today_condition"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/today_condition"
-        app:layout_constraintTop_toBottomOf="@+id/today_condition" />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/rv_today_condition"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/today"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/today" />-->
 
     <ProgressBar
         android:id="@+id/progress_bar_home"

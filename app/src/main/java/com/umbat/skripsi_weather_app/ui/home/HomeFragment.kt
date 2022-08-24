@@ -111,13 +111,13 @@ class HomeFragment : Fragment() {
         /**
          * Intent to 7 Days Condition Activity
          */
-        val next7Days: TextView = binding.next7Days
-        next7Days.setOnClickListener{
-            val intent = Intent(requireContext(), WeekWeatherActivity::class.java)
-            startActivity(intent)
-
-            next7Days.movementMethod = LinkMovementMethod.getInstance()
-        }
+//        val next7Days: TextView = binding.next7Days
+//        next7Days.setOnClickListener{
+//            val intent = Intent(requireContext(), WeekWeatherActivity::class.java)
+//            startActivity(intent)
+//
+//            next7Days.movementMethod = LinkMovementMethod.getInstance()
+//        }
 
         /**
          * Intent to add location

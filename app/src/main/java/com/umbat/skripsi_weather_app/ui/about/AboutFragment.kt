@@ -33,7 +33,7 @@ class AboutFragment : Fragment() {
 
         val githubLogo = binding.ivGithub
         githubLogo.setOnClickListener {
-            Toast.makeText(requireContext(), "Went to github page", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Move to github page", Toast.LENGTH_SHORT).show()
             val uri: Uri = Uri.parse("https://github.com/skripsinyafaqihfarhan") // missing 'http://' will cause crashed
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
@@ -41,7 +41,7 @@ class AboutFragment : Fragment() {
 
         val gmailLogo = binding.ivGmail
         gmailLogo.setOnClickListener {
-            Toast.makeText(requireContext(), "Went to gmail", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Move to gmail", Toast.LENGTH_SHORT).show()
             val uri: Uri = Uri.parse("mailto: skripsinyafaqihfarhan@gmail.com")
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)

@@ -5,49 +5,49 @@ import java.lang.IllegalArgumentException
 import java.util.*
 
 class DataDefine {
-    fun kondisiCuaca(x: String): String {
+    fun kondisiCuaca(x: String): Int {
         return when(x) {
-            "0" -> {"Cerah"}
-            "1" -> {"Cerah Berawan"}
-            "2" -> {"Cerah Berawan"}
-            "3" -> {"Berawan"}
-            "4" -> {"Berawan Tebal"}
-            "5" -> {"Udara Kabur"}
-            "10" -> {"Asap"}
-            "45" -> {"Kabut"}
-            "60" -> {"Hujan Ringan"}
-            "61" -> {"Hujan Sedang"}
-            "63" -> {"Hujan Lebat"}
-            "80" -> {"Hujan Lokal"}
-            "95" -> {"Hujan Petir"}
-            "97" -> {"Hujan Petir"}
+            "0" -> { R.string.bright }
+            "1" -> { R.string.sunny_cloudy }
+            "2" -> { R.string.sunny_cloudy }
+            "3" -> { R.string.cloudy }
+            "4" -> { R.string.heavy_cloudy }
+            "5" -> { R.string.blurred_air }
+            "10" -> { R.string.smoke }
+            "45" -> { R.string.fog }
+            "60" -> { R.string.light_rain }
+            "61" -> { R.string.medium_rain }
+            "63" -> { R.string.heavy_rain }
+            "80" -> { R.string.local_rain }
+            "95" -> { R.string.thunderstorm }
+            "97" -> { R.string.thunderstorm }
             else -> {
                 throw IllegalArgumentException("Kondisi cuaca tak terdefinisi")
-                return "Kondisi cuaca tak terdefinisi"
+                return R.string.undefined
             }
         }
     }
-    fun arahAngin(x: String): String {
+    fun arahAngin(x: String): Int {
         return when(x) {
-            "N" -> {"Utara"}
-            "NNE" -> {"Utara-Timur Laut"}
-            "NE" -> {"Timur Laut"}
-            "ENE" -> {"Timur-Timur Laut"}
-            "E" -> {"Timur"}
-            "ESE" -> {"Timur-Tenggara"}
-            "SE" -> {"Tenggara"}
-            "SSE" -> {"Tenggara-Selatan"}
-            "S" -> {"Selatan"}
-            "SSW" -> {"Selatan-Barat Daya"}
-            "SW" -> {"Barat Daya"}
-            "WSW" -> {"Barat-Barat Daya"}
-            "W" -> {"Barat"}
-            "WNW" -> {"Barat-Barat Laut"}
-            "NW" -> {"Barat Laut"}
-            "NNW" -> {"Utara-Barat Laut"}
+            "N" -> { R.string.north }
+            "NNE" -> { R.string.north_north_east }
+            "NE" -> { R.string.north_east }
+            "ENE" -> { R.string.east_north_east }
+            "E" -> { R.string.east }
+            "ESE" -> { R.string.east_south_east }
+            "SE" -> { R.string.south_east }
+            "SSE" -> { R.string.south_south_east }
+            "S" -> { R.string.south }
+            "SSW" -> { R.string.south_south_west }
+            "SW" -> { R.string.south_west }
+            "WSW" -> { R.string.west_south_west }
+            "W" -> { R.string.west }
+            "WNW" -> { R.string.west_north_west }
+            "NW" -> { R.string.north_west }
+            "NNW" -> { R.string.north_north_west }
             else -> {
                 throw IllegalArgumentException("Kondisi cuaca tak terdefinisi")
-                return "Kondisi cuaca tak terdefinisi"
+                return R.string.undefined
             }
         }
     }

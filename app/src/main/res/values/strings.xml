@@ -33,6 +33,49 @@
     <string name="preference">Preference</string>
     <string name="dark_mode">Dark mode</string>
     <string name="choose_language">Choose language</string>
+    <string name="forecast_at_1">Weather forecast at: 00.00—00.59</string>
+    <string name="forecast_at_4">Weather forecast at: 01.00—03.59</string>
+    <string name="forecast_at_7">Weather forecast at: 04.00—06.59</string>
+    <string name="forecast_at_10">Weather forecast at: 07.00—09.59</string>
+    <string name="forecast_at_13">Weather forecast at: 10.00—12.59</string>
+    <string name="forecast_at_16">Weather forecast at: 13.00—15.59</string>
+    <string name="forecast_at_19">Weather forecast at: 16.00—18.59</string>
+    <string name="forecast_at_22">Weather forecast at: 19.00—21.59</string>
+    <string name="forecast_at_23">Weather forecast at: 22.00—23.59</string>
+
+    <string name="undefined">Undefined</string>
+
+    <string name="bright">Bright</string>
+    <string name="sunny_cloudy">Sunny Cloudy</string>
+    <string name="cloudy">Cloudy</string>
+    <string name="heavy_cloudy">Heavy Cloudy</string>
+    <string name="blurred_air">Blurred Air</string>
+    <string name="smoke">Smoke</string>
+    <string name="fog">Fog</string>
+    <string name="light_rain">Light Rain</string>
+    <string name="medium_rain">Medium Rain</string>
+    <string name="heavy_rain">Heavy Rain</string>
+    <string name="local_rain">Local Rain</string>
+    <string name="thunderstorm">Thunderstorm</string>
+
+    <string name="north">North</string>
+    <string name="north_north_east">North North East</string>
+    <string name="north_east">North East</string>
+    <string name="east_north_east">East North East</string>
+    <string name="east">East</string>
+    <string name="east_south_east">East South East</string>
+    <string name="south_east">South East</string>
+    <string name="south_south_east">South South East</string>
+    <string name="south">South</string>
+    <string name="south_south_west">South South West</string>
+    <string name="south_west">South West</string>
+    <string name="west_south_west">West South West</string>
+    <string name="west">West</string>
+    <string name="west_north_west">West North West</string>
+    <string name="north_west">North West</string>
+    <string name="north_north_west">North North West</string>
+
+
 
     <string name="X">X</string>
     <string name="read_search_hint">Read Search Hint</string>
@@ -71,4 +114,6 @@
 \n32. Sumatera Barat = sumbar
 \n33. Sumatera Selatan = sumsel
 \n34. Sumatera Utara = sumut</string>
+    <string name="notification">Notification</string>
+    <string name="available_in_english_and_indonesian">Available in English and Indonesian</string>
 </resources>

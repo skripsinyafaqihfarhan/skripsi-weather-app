@@ -28,7 +28,7 @@ private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("s
 /**
  * Implementation of App Widget functionality.
  */
-class WeatherWidget : AppWidgetProvider(), LifecycleOwner {
+class WeatherWidget : AppWidgetProvider() {
     private lateinit var timeVariable: String
     private lateinit var textTime: String
     private lateinit var dateFormat: SimpleDateFormat
@@ -55,7 +55,7 @@ class WeatherWidget : AppWidgetProvider(), LifecycleOwner {
         today = dateFormat.format(calendarNow.time)
         yesterday = dateFormat.format(calendarYesterday.time)
 
-        checkMatchTime(calendarNow)
+//        checkMatchTime(calendarNow)
 
         val weatherDB = WeatherDatabase.getInstance(context)
         val daoWeather = weatherDB.weatherDao()
@@ -104,14 +104,7 @@ class WeatherWidget : AppWidgetProvider(), LifecycleOwner {
     }
 
     override fun onEnabled(context: Context) {
-        calendarNow = Calendar.getInstance()
-        calendarYesterday = Calendar.getInstance()
-        calendarYesterday.add(Calendar.DATE,-1)
-        dateFormat = SimpleDateFormat("yyyy-MM-dd")
-        today = dateFormat.format(calendarNow.time)
-        yesterday = dateFormat.format(calendarYesterday.time)
-
-        checkMatchTime(calendarNow)
+        // Enter relevant functionality for when the first widget is created
     }
 
     override fun onDisabled(context: Context) {
@@ -127,7 +120,7 @@ class WeatherWidget : AppWidgetProvider(), LifecycleOwner {
         today = dateFormat.format(calendarNow.time)
         yesterday = dateFormat.format(calendarYesterday.time)
 
-        checkMatchTime(calendarNow)
+//        checkMatchTime(calendarNow)
 
         super.onReceive(context, intent)
         if (WIDGET_CLICK == intent.action) {
@@ -175,43 +168,43 @@ class WeatherWidget : AppWidgetProvider(), LifecycleOwner {
         )
     }
 
-    private fun checkMatchTime(currentTime: Calendar) {
+//    private fun checkMatchTime(currentTime: Calendar) {
+//
+//        val currentHour = currentTime[Calendar.HOUR_OF_DAY]
+//        val currentSecond = currentTime[Calendar.HOUR_OF_DAY] * 60 + currentTime[Calendar.MINUTE]
+//        when {
+//            currentHour < 1 -> {
+//                timeVariable = "$yesterday 15:00:00"
+//                textTime = "Prakiraan pukul: 00.00--00.59"
+//            }currentHour < 4 -> {
+//            timeVariable = "$yesterday 18:00:00"
+//            textTime = "Prakiraan pukul: 01.00--03.59"
+//        }currentHour < 7 -> {
+//            timeVariable = "$yesterday 21:00:00"
+//            textTime = "Prakiraan pukul: 04.00--06.59"
+//        }currentHour < 10 -> {
+//            timeVariable = "$today 00:00:00"
+//            textTime = "Prakiraan pukul: 07.00--09.59"
+//        }currentHour < 13 -> {
+//            timeVariable = "$today 03:00:00"
+//            textTime = "Prakiraan pukul: 10.00--12.59"
+//        }currentHour < 16 -> {
+//            timeVariable = "$today 06:00:00"
+//            textTime = "Prakiraan pukul: 13.00--15.59"
+//        }currentHour < 19 -> {
+//            timeVariable = "$today 09:00:00"
+//            textTime = "Prakiraan pukul: 16.00--18.59"
+//        }currentHour < 22 -> {
+//            timeVariable = "$today 12:00:00"
+//            textTime = "Prakiraan pukul: 19.00--21.59"
+//        }currentSecond < 23 * 60 + 59 -> {
+//            timeVariable = "$today 15:00:00"
+//            textTime = "Prakiraan pukul: 22.00--23.59"
+//        }
+//        }
+//    }
 
-        val currentHour = currentTime[Calendar.HOUR_OF_DAY]
-        val currentSecond = currentTime[Calendar.HOUR_OF_DAY] * 60 + currentTime[Calendar.MINUTE]
-        when {
-            currentHour < 1 -> {
-                timeVariable = "$yesterday 15:00:00"
-                textTime = "Prakiraan pukul: 00.00--00.59"
-            }currentHour < 4 -> {
-            timeVariable = "$yesterday 18:00:00"
-            textTime = "Prakiraan pukul: 01.00--03.59"
-        }currentHour < 7 -> {
-            timeVariable = "$yesterday 21:00:00"
-            textTime = "Prakiraan pukul: 04.00--06.59"
-        }currentHour < 10 -> {
-            timeVariable = "$today 00:00:00"
-            textTime = "Prakiraan pukul: 07.00--09.59"
-        }currentHour < 13 -> {
-            timeVariable = "$today 03:00:00"
-            textTime = "Prakiraan pukul: 10.00--12.59"
-        }currentHour < 16 -> {
-            timeVariable = "$today 06:00:00"
-            textTime = "Prakiraan pukul: 13.00--15.59"
-        }currentHour < 19 -> {
-            timeVariable = "$today 09:00:00"
-            textTime = "Prakiraan pukul: 16.00--18.59"
-        }currentHour < 22 -> {
-            timeVariable = "$today 12:00:00"
-            textTime = "Prakiraan pukul: 19.00--21.59"
-        }currentSecond < 23 * 60 + 59 -> {
-            timeVariable = "$today 15:00:00"
-            textTime = "Prakiraan pukul: 22.00--23.59"
-        }
-        }
-    }
-
-    override fun getLifecycle(): Lifecycle {
-        TODO("Not yet implemented")
-    }
+//    override fun getLifecycle(): Lifecycle {
+//        TODO("Not yet implemented")
+//    }
 }

@@ -13,7 +13,7 @@
     app:cardCornerRadius="5dp"
     app:cardElevation="0dp"
     app:strokeWidth="1dp"
-    card_view:cardBackgroundColor="@color/light_blue_200">
+    card_view:cardBackgroundColor="@color/dark_blue">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:text="@string/kecamatan"
             android:textSize="18sp"
+            android:textColor="@color/black"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content"
             android:text=", "
             android:textSize="18sp"
+            android:textColor="@color/black"
             card_view:layout_constraintBottom_toBottomOf="@id/tv_search_kecamatan"
             card_view:layout_constraintStart_toEndOf="@id/tv_search_kecamatan"
             card_view:layout_constraintTop_toTopOf="@id/tv_search_kecamatan"/>
@@ -48,6 +50,7 @@
             android:layout_height="wrap_content"
             android:text="@string/kota_kabupaten"
             android:textSize="18sp"
+            android:textColor="@color/black"
             card_view:layout_constraintBottom_toBottomOf="@id/tv_comma"
             card_view:layout_constraintStart_toEndOf="@id/tv_comma"
             card_view:layout_constraintTop_toTopOf="@id/tv_comma"/>
@@ -58,6 +61,7 @@
             android:layout_height="wrap_content"
             android:text=", "
             android:textSize="18sp"
+            android:textColor="@color/black"
             card_view:layout_constraintBottom_toBottomOf="@id/tv_search_kota"
             card_view:layout_constraintStart_toEndOf="@id/tv_search_kota"
             card_view:layout_constraintTop_toTopOf="@id/tv_search_kota"/>
@@ -68,6 +72,7 @@
             android:layout_height="wrap_content"
             android:text="@string/provinsi"
             android:textSize="18sp"
+            android:textColor="@color/black"
             card_view:layout_constraintBottom_toBottomOf="@id/tv_comma2"
             card_view:layout_constraintStart_toEndOf="@id/tv_comma2"
             card_view:layout_constraintTop_toTopOf="@id/tv_comma2"/>

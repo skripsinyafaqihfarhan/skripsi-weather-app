@@ -37,6 +37,19 @@
             android:src="@drawable/ic_baseline_search_24"/>
     </FrameLayout>
 
+    <Button
+        android:id="@+id/tv_search_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:textSize="16dp"
+        android:clickable="true"
+        android:text="@string/read_search_hint"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        app:layout_constraintStart_toStartOf="@+id/search"
+        app:layout_constraintTop_toBottomOf="@+id/search" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_location_list"
         android:layout_width="match_parent"
@@ -46,7 +59,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search"
+        app:layout_constraintTop_toBottomOf="@+id/tv_search_hint"
         tools:listitem="@layout/item_location_list" />
 
     <ProgressBar

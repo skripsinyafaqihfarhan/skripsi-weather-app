@@ -1,13 +1,16 @@
 package com.umbat.skripsi_weather_app.ui.about
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.umbat.skripsi_weather_app.databinding.FragmentAboutBinding
+
 
 class AboutFragment : Fragment() {
 
@@ -28,10 +31,26 @@ class AboutFragment : Fragment() {
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSlideshow
-        aboutViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val githubLogo = binding.ivGithub
+        githubLogo.setOnClickListener {
+            Toast.makeText(requireContext(), "Went to github page", Toast.LENGTH_SHORT).show()
+            val uri: Uri = Uri.parse("https://github.com/skripsinyafaqihfarhan") // missing 'http://' will cause crashed
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
+
+        val gmailLogo = binding.ivGmail
+        gmailLogo.setOnClickListener {
+            Toast.makeText(requireContext(), "Went to gmail", Toast.LENGTH_SHORT).show()
+            val uri: Uri = Uri.parse("mailto: skripsinyafaqihfarhan@gmail.com")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+
+//        val textView: TextView = binding.textSlideshow
+//        aboutViewModel.text.observe(viewLifecycleOwner) {
+//            textView.text = it
+//        }
         return root
     }
 

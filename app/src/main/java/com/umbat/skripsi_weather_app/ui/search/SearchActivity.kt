@@ -11,6 +11,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firebase.ui.database.FirebaseRecyclerAdapter
@@ -34,6 +37,7 @@ import com.umbat.skripsi_weather_app.data.remote.Scan
 import com.umbat.skripsi_weather_app.databinding.ActivitySearchBinding
 import com.umbat.skripsi_weather_app.databinding.ItemLocationListBinding
 import com.umbat.skripsi_weather_app.model.ViewModelFactory
+import com.umbat.skripsi_weather_app.ui.SearchHintActivity
 import com.umbat.skripsi_weather_app.utils.ScheduleReceiver
 import kotlinx.coroutines.*
 import java.io.IOException
@@ -66,6 +70,12 @@ class SearchActivity : AppCompatActivity() {
 //        searchViewModel.getLocation().observe(this) { loc ->
 //            if (loc.isSelected) moveToMainActivity()
 //        }
+        val searchHint : Button = binding.tvSearchHint
+        searchHint.setOnClickListener{
+            val intent = Intent(this, SearchHintActivity::class.java)
+            startActivity(intent)
+        }
+
         searchViewModel.getThemeSettings(preferences).observe(this
         ) { isDarkModeActive: Boolean ->
             if (isDarkModeActive) {

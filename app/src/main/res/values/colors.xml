@@ -11,4 +11,9 @@
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
+
+    <color name="dark_blue">#42A0F0</color>
+    <color name="light_blue">#B4F5F1</color>
+    <color name="yellow_sun">#FFEC65</color>
+    <color name="green">#32E031</color>
 </resources>
